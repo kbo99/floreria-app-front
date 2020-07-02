@@ -1,0 +1,185 @@
+<!-- <div class="login-box card">
+        <div class="card-body">
+            <form ngNativeValidate #f="ngForm" class="form-horizontal form-material" (ngSubmit)="ingresar( f )"> -->
+<!-- <a href="javascript:void(0)" class="text-center db"><img src="../assets/images/logo-icon.png" alt="Home" /><br/><img src="../assets/images/logo-text.png" alt="Home" /></a> -->
+<!-- <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input ngModel name="email" class="form-control" type="text" required placeholder="Usuario">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input ngModel name="password" class="form-control" type="password" required
+                            placeholder="Contraseña"> </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <div class="checkbox checkbox-info pull-left p-t-0">
+                            <input id="checkbox-signup" type="checkbox" class="filled-in chk-col-light-blue">
+                            <label for="checkbox-signup"> Recuerdame </label>
+                        </div>
+                        <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right">
+                            <i class="fa fa-lock m-r-5"></i> Olvide mi contraseña?</a>
+                    </div>
+                    <br>
+                </div>
+                <div [hidden]='errMess === ""' class="form-group row">
+                    <div class="col-md-12">
+                        <i class="fa fa-exclamation-triangle m-r-5"></i><label
+                            class="text  text-danger">{{errMess}}</label>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <div class="col-xs-12 p-b-20">
+                        <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">Log In</button>
+                    </div>
+                </div>
+               
+                <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            Don't have an account? <a href="pages-register.html" class="text-info m-l-5"><b>Sign Up</b></a>
+                        </div>
+                    </div>
+            -->
+<div class="content">
+
+
+  <div class="external-page sb-l-c sb-r-c">
+
+    <!-- Start: Main -->
+    <div id="main" class="animated fadeIn">
+
+      <!-- Start: Content-Wrapper -->
+      <section id="content_wrapper">
+
+        <!-- begin canvas animation bg -->
+        <div id="canvas-wrapper">
+          <canvas id="demo-canvas"></canvas>
+        </div>
+
+        <!-- Begin: Content -->
+        <section id="content">
+
+          <div class="admin-form theme-info" id="login1">
+
+            <div class="row mb15 table-layout">
+
+              <div class="col-xs-6 text-right va-b pr5">
+                <div class="login-links">
+                  <!-- <a href="pages_login.html" class="active" title="Sign In">Sign In</a>
+                  <span class="text-white"> | </span> -->
+                  <a href="pages_register.html" class="" title="Register">Register</a>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="panel panel-info mt10 br-n">
+
+              <div class="panel-heading heading-border bg-white">
+                <span class="panel-title hidden">
+                  <i class="fa fa-sign-in"></i>Register</span>
+                <div class="section row mn">
+                  <div class="col-sm-1 col-md-1 col-xs-3">
+                    <a href="#" class="button btn-social facebook span-left mr5 btn-block">
+                      <span>
+                        <i class="fa fa-facebook"></i>
+                      </span></a>
+                  </div>
+                  <div class="col-sm-1 col-md-1 col-xs-3">
+                    <a href="#" class="button btn-social twitter span-left mr5 btn-block">
+                      <span>
+                        <i class="fa fa-twitter"></i>
+                      </span></a>
+                  </div>
+                  <div class="col-sm-1 col-md-1 col-xs-3">
+                    <a href="#" class="button btn-social googleplus span-left btn-block">
+                      <span>
+                        <i class="fa fa-google-plus"></i>
+                      </span></a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- end .form-header section -->
+              <form ngNativeValidate #f="ngForm" class="form-horizontal form-material" (ngSubmit)="ingresar( f )">
+                <div class="form-group ">
+                  <div class="col-xs-12">
+                    <input ngModel name="email" class="form-control" type="text" required placeholder="Usuario">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-xs-12">
+                    <input ngModel name="password" class="form-control" type="password" required
+                      placeholder="Contraseña">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <div class="checkbox checkbox-info pull-left p-t-0">
+                      <input id="checkbox-signup" type="checkbox" class="filled-in chk-col-light-blue">
+                      <label for="checkbox-signup"> Recuerdame </label>
+                    </div>
+                    <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right">
+                      <i class="fa fa-lock m-r-5"></i> Olvide mi contraseña?</a>
+                  </div>
+                  <br>
+                </div>
+                <div [hidden]='errMess === ""' class="form-group row">
+                  <div class="col-md-12">
+                    <i class="fa fa-exclamation-triangle m-r-5"></i><label class="text  text-danger">{{errMess}}</label>
+                  </div>
+                </div>
+                <div class="form-group text-center">
+                  <div class="col-xs-12 p-b-20">
+                    <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">Log In</button>
+                  </div>
+                </div>
+
+                <div class="form-group m-b-0">
+                  <div class="col-sm-12 text-center">
+                    Don't have an account? <a href="pages-register.html" class="text-info m-l-5"><b>Sign Up</b></a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </section>
+        <!-- End: Content -->
+
+      </section>
+      <!-- End: Content-Wrapper -->
+
+    </div>
+
+    <!-- Theme Javascript -->
+    <script src="assets/js/utility/utility.js"></script>
+    <script src="assets/js/demo/demo.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- Page Javascript -->
+    <script type="text/javascript">
+      jQuery(document).ready(function () {
+
+        "use strict";
+
+        // Init Theme Core      
+        Core.init();
+
+        // Init Demo JS
+        Demo.init();
+
+        // Init CanvasBG and pass target starting location
+        CanvasBG.init({
+          Loc: {
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 3.3
+          },
+        });
+
+      });
+    </script>
+  </div>
+</div>
