@@ -5,6 +5,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import { ProductoService} from '../../../../shared/service/producto/producto.service';
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -16,32 +18,32 @@ export class ProductListComponent implements OnInit {
   public producto: ProductoVO;
   public lstProd: ProductoVO[] = new Array();
   constructor(
-    private _sanitizer: DomSanitizer, public http: HttpClient, private router: Router) {
+    private _sanitizer: DomSanitizer, public http: HttpClient, private router: Router, private productoService:ProductoService) {
     this.findLstProd();
   }
 
   ngOnInit() {}
   findLstProd(){
     const _this = this;
-      this.http.post('http://localhost:8005/prod/insumos','PC').subscribe({
-        next: data => {
-          this.lstProd = data as Array<ProductoVO>;
-          this.lstProd.forEach(function(value) {
-           
-            if(value.imgDefault !== null && value.imgDefault.length > 0){
-              value.img = "<img src='" + (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgDefault) as any).
-              changingThisBreaksApplicationSecurity
-              +"' class='imgTable'>"
-            }
-           // _this.lstProd.push(value);
-          });
-  
-        },
-        error: error => console.error('There was an error!', error)
-  
-    });
+    this.productoService.getProdByestatus('PC').subscribe(
+      correcto => {
+        this.lstProd = correcto as Array<ProductoVO>;
+        this.lstProd.forEach(function(value) {
+         
+          if(value.imgDefault !== null && value.imgDefault.length > 0){
+            value.img = "<img src='" + (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgDefault) as any).
+            changingThisBreaksApplicationSecurity
+            +"' class='imgTable'>"
+          }
+         // _this.lstProd.push(value);
+        });
+    },
+     error => {
+       console.error("Usuario o contraseña invalidos");
+     } );
+    
   }
-  edita(){
+  edita(product){
 this.router.navigate['/physical/product-detail'];
   }
 }

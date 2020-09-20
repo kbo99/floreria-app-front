@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { LocalDataSource } from 'ng2-smart-table';
 
+import { ProductoService} from '../../../../shared/service/producto/producto.service';
+
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -29,7 +31,7 @@ export class ProductDetailComponent implements OnInit {
 
 
   constructor(private modalService: NgbModal, config: NgbRatingConfig, 
-    private router:Router, public http: HttpClient, private _sanitizer: DomSanitizer) {
+    private router:Router, public http: HttpClient, private _sanitizer: DomSanitizer,private productoService:ProductoService) {
     config.max = 5;
     config.readonly = false;
     this.  findLstProd();
@@ -67,16 +69,22 @@ export class ProductDetailComponent implements OnInit {
 
   findLstProd(){
     const _this = this;
-      this.http.post('http://localhost:8005/prod/prod',24).subscribe({
-        next: data => {
-          this.producto = data as ProductoVO;
-          let i : number = 0;
-         
-  
-        },
-        error: error => console.error('There was an error!', error)
-  
+    this.productoService.findByProdId(1).subscribe(
+      correcto => {  this.producto = correcto as ProductoVO;
+        _this.imagesRect = new Array()
+        let index = 0;
+        this.producto.lstImg.forEach(function(value) {
+          
+          _this.imagesRect.push(new Image(0, { img: (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgUrl) as any).
+            changingThisBreaksApplicationSecurity }, { img: (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgUrl) as any).
+              changingThisBreaksApplicationSecurity }));
+              index++;
     });
+      },
+     error => {
+       console.error("Usuario o contraseña invalidos");
+     } );
+      
   }
   public settings = {
     actions: false,
@@ -109,25 +117,6 @@ export class ProductDetailComponent implements OnInit {
 
 findLstProdLsrt(){
   const _this = this;
-    this.http.post('http://localhost:8005/prod/insumos','AC').subscribe({
-      next: data => {
-        this.lstProdTmp = data as Array<ProductoVO>;
-        this.lstProdTmp.forEach(function(value) {
-         
-          if(value.imgDefault !== null && value.imgDefault.length > 0){
-            value.img = "<img src='" + (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgDefault) as any).
-            changingThisBreaksApplicationSecurity
-            +"' class='imgTable'>"
-          }
-         // _this.lstProd.push(value);
-        });
-
-    
-      this.source = new LocalDataSource(this.lstProdTmp)
    
-      },
-      error: error => console.error('There was an error!', error)
-
-  });
 }
 }

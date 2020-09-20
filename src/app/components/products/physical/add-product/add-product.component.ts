@@ -144,9 +144,9 @@ public settings = {
 
 findLstProd(){
   const _this = this;
-    this.http.post('http://localhost:8005/prod/insumos','AC').subscribe({
-      next: data => {
-        this.lstProdTmp = data as Array<ProductoVO>;
+  this.productoService.getProdByestatus('AC').subscribe(
+    correcto => {
+      this.lstProdTmp = correcto as Array<ProductoVO>;
         this.lstProdTmp.forEach(function(value) {
          
           if(value.imgDefault !== null && value.imgDefault.length > 0){
@@ -154,16 +154,12 @@ findLstProd(){
             changingThisBreaksApplicationSecurity
             +"' class='imgTable'>"
           }
-         // _this.lstProd.push(value);
-        });
-
-    
-      this.source = new LocalDataSource(this.lstProdTmp)
-   
-      },
-      error: error => console.error('There was an error!', error)
-
-  });
+    });
+    this.source = new LocalDataSource(this.lstProdTmp)
+  },
+   error => {
+     console.error("Usuario o contraseña invalidos");
+   } );
 }
 
 insumos(){

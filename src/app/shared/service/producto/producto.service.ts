@@ -25,4 +25,12 @@ export class ProductoService{
                     return resp;
                   });
     }
+
+    findByProdId(prodId : number){
+      let url = 'prod/prod';
+      return this.http.post( url, prodId)
+                  .map( (resp: any) => {
+                    return resp;
+                  });
+    }
 }
