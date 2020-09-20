@@ -54,48 +54,48 @@
                                         class="needs-validation user-add" novalidate="">
                                         <div class="permission-block">
                                             <div class="attribute-blocks">
-                                                <h5 class="f-w-600 mb-3">Product Related permission </h5>
+                                                <h5 class="f-w-600 mb-3">Productos </h5>
                                                 <div class="row">
                                                     <div class="col-xl-3 col-sm-4">
-                                                        <label>Add Product</label>
+                                                        <label>Agregar Producto</label>
                                                     </div>
                                                     <div class="col-xl-9 col-sm-8">
                                                         <div
                                                             class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
                                                             <label class="d-block" for="edo-ani1">
                                                                 <input class="radio_animated" id="edo-ani1" type="radio"
-                                                                    name="rdo-ani">
-                                                                Allow
+                                                                    name="rdo-ani" (click)="addGroup('ROLE_ADD_PROD')">
+                                                                Permitir
                                                             </label>
                                                             <label class="d-block" for="edo-ani2">
                                                                 <input class="radio_animated" id="edo-ani2" type="radio"
-                                                                    name="rdo-ani" checked="">
-                                                                Deny
+                                                                    name="rdo-ani" checked=""  (click)="removeGroup('ROLE_ADD_PROD')">
+                                                                Denegar
                                                             </label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xl-3 col-sm-4">
-                                                        <label>Update Product</label>
+                                                        <label>Actualizar Productos</label>
                                                     </div>
                                                     <div class="col-xl-9 col-sm-8">
                                                         <div
                                                             class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
                                                             <label class="d-block" for="edo-ani3">
                                                                 <input class="radio_animated" id="edo-ani3" type="radio"
-                                                                    name="rdo-ani1">
-                                                                Allow
+                                                                    name="rdo-ani1" (click)="addGroup('ROLE_EDIT_PROD')">
+                                                                    Permitir
                                                             </label>
                                                             <label class="d-block" for="edo-ani4">
                                                                 <input class="radio_animated" id="edo-ani4" type="radio"
-                                                                    name="rdo-ani1" checked="">
-                                                                Deny
+                                                                    name="rdo-ani1" checked="" (click)="removeGroup('ROLE_EDIT_PROD')">
+                                                                    Denegar
                                                             </label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                     <div class="col-xl-3 col-sm-4">
                                                         <label>Delete Product</label>
                                                     </div>
@@ -114,8 +114,8 @@
                                                             </label>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
+                                                </div> -->
+                                                <!-- <div class="row">
                                                     <div class="col-xl-3 col-sm-4">
                                                         <label class="mb-0 sm-label-radio">Apply discount</label>
                                                     </div>
@@ -134,90 +134,32 @@
                                                             </label>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <div class="attribute-blocks">
-                                                <h5 class="f-w-600 mb-3">Category Related permission </h5>
+                                                <h5 class="f-w-600 mb-3">Usuarios </h5>
                                                 <div class="row">
                                                     <div class="col-xl-3 col-sm-4">
-                                                        <label>Add Category</label>
+                                                        <label>Administrar Usuarios</label>
                                                     </div>
                                                     <div class="col-xl-9 col-sm-8">
                                                         <div
                                                             class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
                                                             <label class="d-block" for="edo-ani9">
                                                                 <input class="radio_animated" id="edo-ani9" type="radio"
-                                                                    name="rdo-ani4">
-                                                                Allow
+                                                                    name="rdo-ani4" (click)="addGroup('ROLE_ADMIN_USU')">
+                                                                Permitir
                                                             </label>
                                                             <label class="d-block" for="edo-ani10">
                                                                 <input class="radio_animated" id="edo-ani10"
-                                                                    type="radio" name="rdo-ani4" checked="">
-                                                                Deny
+                                                                    type="radio" name="rdo-ani4" checked="" (click)="removeGroup('ROLE_ADMIN_USU')">
+                                                                Denegar
                                                             </label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-xl-3 col-sm-4">
-                                                        <label>Update Category</label>
-                                                    </div>
-                                                    <div class="col-xl-9 col-sm-8">
-                                                        <div
-                                                            class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
-                                                            <label class="d-block" for="edo-ani11">
-                                                                <input class="radio_animated" id="edo-ani11"
-                                                                    type="radio" name="rdo-ani5">
-                                                                Allow
-                                                            </label>
-                                                            <label class="d-block" for="edo-ani12">
-                                                                <input class="radio_animated" id="edo-ani12"
-                                                                    type="radio" name="rdo-ani5" checked="">
-                                                                Deny
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xl-3 col-sm-4">
-                                                        <label>Delete Category</label>
-                                                    </div>
-                                                    <div class="col-xl-9 col-sm-8">
-                                                        <div
-                                                            class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
-                                                            <label class="d-block" for="edo-ani13">
-                                                                <input class="radio_animated" id="edo-ani13"
-                                                                    type="radio" name="rdo-ani6">
-                                                                Allow
-                                                            </label>
-                                                            <label class="d-block" for="edo-ani14">
-                                                                <input class="radio_animated" id="edo-ani14"
-                                                                    type="radio" name="rdo-ani6" checked="">
-                                                                Deny
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xl-3 col-sm-4">
-                                                        <label class="mb-0 sm-label-radio">Apply discount</label>
-                                                    </div>
-                                                    <div class="col-xl-9 col-sm-8">
-                                                        <div
-                                                            class="form-group m-checkbox-inline custom-radio-ml d-flex radio-animated pb-0">
-                                                            <label class="d-block mb-0" for="edo-ani15">
-                                                                <input class="radio_animated" id="edo-ani15"
-                                                                    type="radio" name="rdo-ani7">
-                                                                Allow
-                                                            </label>
-                                                            <label class="d-block mb-0" for="edo-ani16">
-                                                                <input class="radio_animated" id="edo-ani16"
-                                                                    type="radio" name="rdo-ani7" checked="">
-                                                                Deny
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                               
+                                            
                                             </div>
                                         </div>
                                     </form>

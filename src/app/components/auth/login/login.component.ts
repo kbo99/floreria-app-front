@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("submit");
+    //console.log("submit");
    
     this._authService.login( this.loginForm.get('userName').value, this.loginForm.get('password').value, false ).subscribe(
              correcto => this.router.navigate(['/dashboard/default']),

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Cosnt } from 'src/app/shared/utils/Const';
+import { RegisterUsuario } from '../../../shared/model/usuario/RegisterUsuario'
+import { UsuarioService } from '../../../shared/service/usuarios/usuario-service'
 
 @Component({
   selector: 'app-create-user',
@@ -9,19 +12,24 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class CreateUserComponent implements OnInit {
   public accountForm: FormGroup;
   public permissionForm: FormGroup;
+  public registerUser:RegisterUsuario;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.createAccountForm();
-    this.createPermissionForm();
+  public const: Cosnt;
+
+  constructor(private formBuilder: FormBuilder, _usuarioService: UsuarioService) {
+
+    this.registerUser = new RegisterUsuario();
+
+
   }
 
   createAccountForm() {
     this.accountForm = this.formBuilder.group({
-      fname: [''],
-      lname: [''],
-      email: [''],
-      password: [''],
-      confirmPwd: ['']
+      fname: [this.registerUser.persona.perNombre, Validators.required],
+      lname: [this.registerUser.persona.perApePate, Validators.required],
+      email: [this.registerUser.persona.perEmail, Validators.required],
+      password: ["", Validators.required],
+      confirmPwd: ['', Validators.required]
     })
   }
   createPermissionForm() {
@@ -30,6 +38,17 @@ export class CreateUserComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.createAccountForm();
+    this.createPermissionForm();
   }
+
+addGroup(grupo:String):void {
+  //console.log("Agregando grupo: ", grupo);
+  
+}
+
+removeGroup(grupo:String):void {
+  //console.log("Removiendo grupo: ", grupo);
+}
 
 }
