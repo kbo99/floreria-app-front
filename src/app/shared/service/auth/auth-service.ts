@@ -40,14 +40,14 @@ export class AuthService {
     }
   
     private cargarStorage(): void {
-       if ( localStorage.getItem('token')) this._token = localStorage.getItem('token');
+       if ( sessionStorage.getItem('token')) this._token = sessionStorage.getItem('token');
        else this._token = '';
     }
   
     private guardarStorage( token: string): void {
   
       // localStorage.setItem('id', id );
-      localStorage.setItem('token', token );
+      sessionStorage.setItem('token', token );
       this._token = token;
       //console.log('token: ' + token);
       this.cargaUsuario();
@@ -63,7 +63,7 @@ export class AuthService {
   
     public logout(): void {
       this._token = '';
-      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
       sessionStorage.clear();
       this.router.navigate(['/auth/login']);
     }

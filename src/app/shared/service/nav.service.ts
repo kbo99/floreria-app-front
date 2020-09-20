@@ -55,14 +55,14 @@ export class NavService {
 		},
 		{
 			title: 'Ventas', icon: 'dollar-sign', type: 'sub', active: false, children: [
-				{ path: '/sales/orders', title: 'Pedidos', type: 'link' },
-				{ path: '/sales/transactions', title: 'Ventas', type: 'link' },
+				{ path: '/sales/orders', title: 'Ordenes', type: 'link' },
+				{ path: '/sales/transactions', title: 'Transacciones', type: 'link' },
 			]
 		},
 		{
-			title: 'Promociones', icon: 'tag', type: 'sub', active: false, children: [
-				{ path: '/coupons/list-coupons', title: 'Listado Promocion', type: 'link' },
-				{ path: '/coupons/create-coupons', title: 'Crear Promocion', type: 'link' },
+			title: 'Cupones', icon: 'tag', type: 'sub', active: false, children: [
+				{ path: '/coupons/list-coupons', title: 'lista de Cupones', type: 'link' },
+				{ path: '/coupons/create-coupons', title: 'Crear Cupones', type: 'link' },
 			]
 		},
 		// {
@@ -81,22 +81,38 @@ export class NavService {
 		// 	]
 		// },
 		{
-			title: 'Usuario', icon: 'user-plus', type: 'sub', active: false, children: [
-				{ path: '/users/list-user', title: 'Lista Usuarios', type: 'link' },
-				{ path: '/users/create-user', title: 'Crear Usuario', type: 'link' },
+			title: 'Usuarios', icon: 'user-plus', type: 'sub', active: false, children: [
+				{ path: '/users/list-user', title: 'Lista de Usuarios', type: 'link' },
+				{ path: '/users/create-user', title: 'Crear Usuarios', type: 'link' },
 			]
 		},
+		{
+			title: 'Vendedores', icon: 'users', type: 'sub', active: false, children: [
+				{ path: '/vendors/list-vendors', title: 'Lista de Vnededores', type: 'link' },
+				{ path: '/vendors/create-vendors', title: 'Crear Vendedor', type: 'link' },
+			]
+		},
+		// {
+		// 	title: 'Localization', icon: 'chrome', type: 'sub', children: [
+		// 		{ path: '/localization/translations', title: 'Translations', type: 'link' },
+		// 		{ path: '/localization/currency-rates', title: 'Currency Rates', type: 'link' },
+		// 		{ path: '/localization/taxes', title: 'Taxes', type: 'link' },
+		// 	]
+		// },
 		{
 			title: 'Reportes', path: '/reports', icon: 'bar-chart', type: 'link', active: false
 		},
 		{
-			title: 'Settings', icon: 'settings', type: 'sub', children: [
-				{ path: '/settings/profile', title: 'Profile', type: 'link' },
+			title: 'Configuracion', icon: 'settings', type: 'sub', children: [
+				{ path: '/settings/profile', title: 'Perfirl', type: 'link' },
 			]
 		},
-		{
-			title: 'Login',path: '/auth/login', icon: 'log-in', type: 'link', active: false
-		}
+		// {
+		// 	title: 'Invoice', path: '/invoice', icon: 'archive', type: 'link', active: false
+		// },
+		// {
+		// 	title: 'Login',path: '/auth/login', icon: 'log-in', type: 'link', active: false
+		// }
 	]
 	// Array
 	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);

@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { PayLoad } from '../../model/usuario/PayLoad';
+import { AuthService } from '../../service/auth/auth-service';
 import { NavService } from '../../service/nav.service';
 
 @Component({
@@ -14,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() rightSidebarEvent = new EventEmitter<boolean>();
 
-  constructor(public navServices: NavService) { }
+  constructor(public navServices: NavService,  private _authService: AuthService) { }
 
   collapseSidebar() {
     this.open = !this.open;
@@ -32,4 +34,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {  }
 
+  get payload(): PayLoad {
+    return this._authService.payload;
+  }
+
+  logout() {
+    this._authService.logout();
+  }
 }

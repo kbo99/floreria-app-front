@@ -1,6 +1,8 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NavService, Menu } from '../../service/nav.service';
+import { AuthService } from '../../service/auth/auth-service';
+import { PayLoad } from '../../model/usuario/PayLoad';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,7 +16,7 @@ export class SidebarComponent {
   public url: any;
   public fileurl: any;
 
-  constructor(private router: Router, public navServices: NavService) {
+  constructor(private router: Router, public navServices: NavService, private _authService: AuthService) {
     this.navServices.items.subscribe(menuItems => {
       this.menuItems = menuItems
       this.router.events.subscribe((event) => {
@@ -36,6 +38,10 @@ export class SidebarComponent {
         }
       })
     })
+  }
+
+  get payload(): PayLoad {
+    return this._authService.payload;
   }
 
   // Active Nave state
@@ -71,6 +77,10 @@ export class SidebarComponent {
       });
     }
     item.active = !item.active
+  }
+
+  logout() {
+    this._authService.logout();
   }
 
   //Fileupload
