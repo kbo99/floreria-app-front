@@ -1,6 +1,5 @@
 import { Grupo } from "./Grupo";
 import { PayLoad } from './PayLoad';
-import { BrowserStack } from 'protractor/built/driverProviders';
 
 export class Usuario {
     constructor(
@@ -16,7 +15,7 @@ export class Usuario {
     public cargaUsuario(payload: PayLoad): void {
         this.usuUsuario = payload.user_name;
         this.perId = payload.perId;
-        console.log(payload);
+       // console.log(payload);
         payload.authorities.forEach( grupo => {
             let group: Grupo = new Grupo();
             group.grpNombre = grupo;

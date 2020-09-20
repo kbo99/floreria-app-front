@@ -7,12 +7,15 @@ import { Usuario } from '../../model/usuario/Usuario';
 @Injectable({
 	providedIn: 'root'
 })
+
 export class UsuarioService {
     constructor(
         public http: HttpClient,
         public router: Router
       ) {
       }
+
+
 
   generateUserN(usuario: Usuario){
     let url = 'usuario/generateUsuer';

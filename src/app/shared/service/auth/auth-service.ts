@@ -88,7 +88,7 @@ export class AuthService {
        params.set('grant_type', 'password');
        params.set('username', username);
        params.set('password', password);
-       console.log(params.toString());
+      // console.log(params.toString());
        return this.http.post<any>(url, params.toString(), { headers: httpHeaders }).map( (resp: any) => {
           this.guardarStorage(resp.access_token);
           return true;
