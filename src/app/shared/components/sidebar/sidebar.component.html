@@ -1,15 +1,17 @@
 <div class="main-header-left d-none d-lg-block">
   <div class="logo-wrapper"><a [routerLink]="'/dashboard/default'"><img class="blur-up lazyloaded"
-        src="assets/images/dashboard/multikart-logo.png" alt=""></a></div>
+        src="assets/images/dashboard/dash-logo.png" alt=""></a></div>
 </div>
 <div class="sidebar custom-scrollbar">
   <div class="sidebar-user text-center">
     <div><img class="img-60 rounded-circle" src="assets/images/dashboard/man.png" alt="#">
     </div>
-    <h6 class="mt-3 f-14">JOHN</h6>
-    <p>general manager.</p>
+    <h6 class="mt-3 f-14">{{payload.nombre}}</h6>
+    <!-- <p>general manager.</p> -->
+    <p>{{payload.apeP}} {{payload.apeM}}</p>
   </div>
   <ul class="sidebar-menu">
+   
     <li *ngFor="let menuItem of menuItems" [ngClass]="{active: menuItem.active}">
       <!-- Sub -->
       <a href="javascript:void(0)" class="sidebar-header" *ngIf="menuItem.type === 'sub'"
@@ -108,5 +110,12 @@
         </li>
       </ul>
     </li>
+    <li class="active">
+      <a href="javascript:void(0)" class="sidebar-header" routerLinkActive="active" (click)="logout()">
+        <app-feather-icons icon="log-in"></app-feather-icons>
+        <span>Salir<span class="badge badge-primary ml-3"></span></span>
+      </a>
+    </li>
+    
   </ul>
 </div>
