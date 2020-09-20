@@ -11,11 +11,11 @@
                             <div class="product-hover">
                                 <ul>
                                     <li>
-                                        <button   class="btn"(click) = "edita($event)" data-original-title="" title=""><i
+                                        <button class="btn" id="btn-{{product.prodId}}"  type="button"  (click)="toggleMe(product)" data-original-title="" title=""><i
                                                 class="icon-pencil-alt" ></i></button>
-                                    </li>
+                                    </li> 
                                     <li>
-                                        <button class="btn" type="button" data-toggle="modal"
+                                        <button class="btn" id="btnde-{{product.prodId}}"  type="button"  (click)="toggleMe(product)"data-toggle="modal"
                                             data-target="#exampleModalCenter" data-original-title="" title=""><i
                                                 class="icon-trash"></i></button>
                                     </li>

@@ -8,6 +8,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ProductoService} from '../../../../shared/service/producto/producto.service';
+import { Cosnt } from '../../../../shared/utils/Const';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -23,7 +24,7 @@ export class AddProductComponent implements OnInit {
   source : LocalDataSource;
   @ViewChild('imgRef') img:ElementRef;
  private _imgg = '';
-  public url = [{
+   public url = [{
     img: "assets/images/user.png",
   },
   {
@@ -40,16 +41,42 @@ export class AddProductComponent implements OnInit {
   }
   ]
 
-
+prodTmp:string;
   constructor(private fb: FormBuilder, public http: HttpClient, 
     private _sanitizer: DomSanitizer, private router: Router, private productoService:ProductoService) {
+      this.prodTmp  = sessionStorage.getItem(Cosnt.PROD_CONFIG);
+      
+      if(this.prodTmp !== null){
+        
+    this.producto = JSON.parse(this.prodTmp) as ProductoVO;
+    this.currVerifiedLoanOfficerPhoto = (this._sanitizer.bypassSecurityTrustResourceUrl(this.producto.lstImg[0].imgUrl) as any).
+    changingThisBreaksApplicationSecurity;
     this.productForm = this.fb.group({
-      prodNombre: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      prodCostoVenta: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      prodClave: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      prodDescrip: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      prodNombre: [this.producto.prodNombre, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      prodCostoVenta: [this.producto.prodCostoVenta, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      prodClave: [this.producto.prodClave, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      prodDescrip: [this.producto.prodDescrip, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       size: ['', Validators.required],
     });
+    let indexImg:number = 0;
+    const _this = this;
+    this.producto.lstImg.forEach(function(value) {
+     _this.url[indexImg].img =    
+    (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgUrl) as any).
+        changingThisBreaksApplicationSecurity;
+        indexImg++;
+     
+    });
+       }else{
+        this.productForm = this.fb.group({
+          prodNombre: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          prodCostoVenta: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          prodClave: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          prodDescrip: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          size: ['', Validators.required],
+        });
+       }
+      
    
   }
   
