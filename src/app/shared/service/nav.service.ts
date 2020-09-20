@@ -41,36 +41,28 @@ export class NavService {
 			path: '/dashboard/default', title: 'Dashboard', icon: 'home', type: 'link', badgeType: 'primary', active: false
 		},
 		{
-			title: 'Products', icon: 'box', type: 'sub', active: false, children: [
+			title: 'Productos', icon: 'box', type: 'sub', active: false, children: [
 				{
-					title: 'Physical', type: 'sub', children: [
-						{ path: '/products/physical/category', title: 'Category', type: 'link' },
-						{ path: '/products/physical/sub-category', title: 'Sub Category', type: 'link' },
-						{ path: '/products/physical/product-list', title: 'Product List', type: 'link' },
-						{ path: '/products/physical/product-detail', title: 'Product Detail', type: 'link' },
-						{ path: '/products/physical/add-product', title: 'Add Product', type: 'link' },
+					title: 'Floreria', type: 'sub', children: [
+						{ path: '/products/physical/sub-category', title: 'Insumos', type: 'link' },
+						{ path: '/products/physical/product-list', title: 'Producto Configurado', type: 'link' },
+						{ path: '/products/physical/product-detail', title: 'Detalle Producto', type: 'link' },
+						{ path: '/products/physical/add-product', title: 'Agregar Producto', type: 'link' },
 					]
 				},
-				{
-					title: 'digital', type: 'sub', children: [
-						{ path: '/products/digital/digital-category', title: 'Category', type: 'link' },
-						{ path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
-						{ path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
-						{ path: '/products/digital/digital-add-product', title: 'Add Product', type: 'link' },
-					]
-				},
+				
 			]
 		},
 		{
-			title: 'Sales', icon: 'dollar-sign', type: 'sub', active: false, children: [
-				{ path: '/sales/orders', title: 'Orders', type: 'link' },
-				{ path: '/sales/transactions', title: 'Transactions', type: 'link' },
+			title: 'Ventas', icon: 'dollar-sign', type: 'sub', active: false, children: [
+				{ path: '/sales/orders', title: 'Pedidos', type: 'link' },
+				{ path: '/sales/transactions', title: 'Ventas', type: 'link' },
 			]
 		},
 		{
-			title: 'Coupons', icon: 'tag', type: 'sub', active: false, children: [
-				{ path: '/coupons/list-coupons', title: 'List Coupons', type: 'link' },
-				{ path: '/coupons/create-coupons', title: 'Create Coupons', type: 'link' },
+			title: 'Promociones', icon: 'tag', type: 'sub', active: false, children: [
+				{ path: '/coupons/list-coupons', title: 'Listado Promocion', type: 'link' },
+				{ path: '/coupons/create-coupons', title: 'Crear Promocion', type: 'link' },
 			]
 		},
 		// {
@@ -89,35 +81,19 @@ export class NavService {
 		// 	]
 		// },
 		{
-			title: 'Users', icon: 'user-plus', type: 'sub', active: false, children: [
-				{ path: '/users/list-user', title: 'User List', type: 'link' },
-				{ path: '/users/create-user', title: 'Create User', type: 'link' },
+			title: 'Usuario', icon: 'user-plus', type: 'sub', active: false, children: [
+				{ path: '/users/list-user', title: 'Lista Usuarios', type: 'link' },
+				{ path: '/users/create-user', title: 'Crear Usuario', type: 'link' },
 			]
 		},
 		{
-			title: 'Vendors', icon: 'users', type: 'sub', active: false, children: [
-				{ path: '/vendors/list-vendors', title: 'Vendor List', type: 'link' },
-				{ path: '/vendors/create-vendors', title: 'Create Vendor', type: 'link' },
-			]
-		},
-		// {
-		// 	title: 'Localization', icon: 'chrome', type: 'sub', children: [
-		// 		{ path: '/localization/translations', title: 'Translations', type: 'link' },
-		// 		{ path: '/localization/currency-rates', title: 'Currency Rates', type: 'link' },
-		// 		{ path: '/localization/taxes', title: 'Taxes', type: 'link' },
-		// 	]
-		// },
-		{
-			title: 'Reports', path: '/reports', icon: 'bar-chart', type: 'link', active: false
+			title: 'Reportes', path: '/reports', icon: 'bar-chart', type: 'link', active: false
 		},
 		{
 			title: 'Settings', icon: 'settings', type: 'sub', children: [
 				{ path: '/settings/profile', title: 'Profile', type: 'link' },
 			]
 		},
-		// {
-		// 	title: 'Invoice', path: '/invoice', icon: 'archive', type: 'link', active: false
-		// },
 		{
 			title: 'Login',path: '/auth/login', icon: 'log-in', type: 'link', active: false
 		}

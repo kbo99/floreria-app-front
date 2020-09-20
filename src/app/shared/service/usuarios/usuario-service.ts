@@ -1,13 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-
+import 'rxjs/add/operator/map';
 import { Usuario } from '../../model/usuario/Usuario';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class UsuarioService {
+export class UsuarioService{
     constructor(
         public http: HttpClient,
         public router: Router

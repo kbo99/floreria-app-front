@@ -26,32 +26,32 @@ const routes: Routes = [
         path: 'physical/sub-category',
         component: SubCategoryComponent,
         data: {
-          title: "Sub Category",
-          breadcrumb: "Sub Category"
+          title: "Insumos",
+          breadcrumb: "Insumos"
         }
       },
       {
         path: 'physical/product-list',
         component: ProductListComponent,
         data: {
-          title: "Product List",
-          breadcrumb: "Product List"
+          title: "Lista Productos",
+          breadcrumb: "Lista Productos"
         }
       },
       {
         path: 'physical/product-detail',
         component: ProductDetailComponent,
         data: {
-          title: "Product Detail",
-          breadcrumb: "Product Detail"
+          title: "Detalle Producto",
+          breadcrumb: "Detalle"
         }
       },
       {
         path: 'physical/add-product',
         component: AddProductComponent,
         data: {
-          title: "Add Products",
-          breadcrumb: "Add Product"
+          title: "Agregar Producto",
+          breadcrumb: "Agregar"
         }
       },
       {
