@@ -26,20 +26,27 @@
             </div>
         </div>
         <div class="form-group row">
+            <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Tipo Producto :</label>
+            <select placeholder="Tipo Producto" class="form-control col-xl-8 col-sm-7" formControlName="tpoprodId" >
+                <option *ngFor="let mem of lstTpoProd" [value]="mem.tpoprodId">{{mem.tpoprodNombre}}</option>
+              </select>
+        </div>
+
+        <div class="form-group row">
             <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Precio :</label>
             <input class="form-control col-xl-8 col-sm-7" id="validationCustom02"
-                type="number" [formControl]="productForm.controls['prodCostoCompra']" required="" (click)="resetValue()">
+                type="number" [formControl]="productForm.controls['prodCostoCompra']" required="">
             <div *ngIf="productForm.controls.prodCostoCompra.touched && productForm.controls.prodCostoCompra.errors?.required"
                 class="text text-danger">
                 Product Price is required.
             </div>
         </div>
-       
+
         <div class="form-group row">
             <label for="validationCustom03" class="col-xl-3 col-sm-4 mb-0"> Codigo
                 :</label>
             <input class="form-control col-xl-8 col-sm-7" id="validationCustom03"
-                type="number" [formControl]="productForm.controls['prodClave']" required="">
+                type="text" [formControl]="productForm.controls['prodClave']" required="">
             <div *ngIf="productForm.controls.prodClave.touched && productForm.controls.prodClave.errors?.required"
                 class="text text-danger">
                 Product <Code></Code> is required.
@@ -48,14 +55,8 @@
     
         <div class="form-group row">
             <label class="col-xl-3 col-sm-4 mb-0">Numero Productos :</label>
-            <div class="qty-box1">
-                <div class="input-group">
-                    <i class="fa fa-minus btnGtr1" (click)=decrement()></i>
-                    <input class="touchspin1 text-center" name="counter" [value]="counter"
-                        type="text">
-                    <i class="fa fa-plus btnLess1" (click)=increment()></i>
-                </div>
-            </div>
+            <input class="form-control col-xl-8 col-sm-7" id="validationCustom03"
+            type="number" [formControl]="productForm.controls['prodExistenciaMin']" disabled required="">
         </div>
        
     </div>

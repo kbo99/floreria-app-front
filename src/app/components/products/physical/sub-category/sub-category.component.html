@@ -31,6 +31,14 @@
                                                  Name is required.
                                             </div>
                                         </div>
+
+                                        <div class="form-group row">
+                                            <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Tipo Producto :</label>
+                                            <select placeholder="Tipo Producto" class="form-control col-xl-8 col-sm-7" formControlName="tpoprodId" >
+                                                <option *ngFor="let mem of lstTpoProd" [value]="mem.tpoprodId">{{mem.tpoprodNombre}}</option>
+                                              </select>
+                                        </div> 
+                                        
                                         <div class="form-group row">
                                             <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Precio :</label>
                                             <input class="form-control col-xl-8 col-sm-7" id="validationCustom02"

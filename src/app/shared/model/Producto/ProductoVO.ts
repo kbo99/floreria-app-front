@@ -18,7 +18,7 @@ public prodFechaRegistro: Date;
 
 public prodNombre: string;
 
-public tipoProductoVO: TipoProductoVO;
+public tipoProducto: TipoProductoVO;
 
 
 public prodExistenciaMin: number;
@@ -38,6 +38,8 @@ public imgDefault: string;
 public img;
 
 public compHtml;
+
+public tpoprodNombre;
 
 constructor() {}
 

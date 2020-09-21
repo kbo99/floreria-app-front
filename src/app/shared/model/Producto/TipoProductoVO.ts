@@ -6,7 +6,9 @@ export class TipoProductoVO {
 
 	public tpoprodDecrip: string;
 
-	public tpoprodNombre: string;
+    public tpoprodNombre: string;
+    
+    public tpoprodEstatus:string;
 
     
     constructor(){}

@@ -11,6 +11,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { ProductoService} from '../../../../shared/service/producto/producto.service';
 import { Cosnt } from 'src/app/shared/utils/Const';
 import { Router } from '@angular/router';
+import { TipoProductoVO } from 'src/app/shared/model/Producto/TipoProductoVO';
 
 @Component({
   selector: 'app-sub-category',
@@ -26,6 +27,8 @@ export class SubCategoryComponent implements OnInit {
   public lstImg: Imagen[] = new Array();
   public lstProd: ProductoVO[] = new Array();
   public lstProdTmp: ProductoVO[] = new Array();
+  lstTpoProd:TipoProductoVO [] = new Array();
+  tipoProducto: TipoProductoVO = new TipoProductoVO();
   source : LocalDataSource;
   lastClickTime: number = 0;
   public url = [{
@@ -40,7 +43,8 @@ export class SubCategoryComponent implements OnInit {
       prodCostoCompra: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodCostoVenta: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodClave: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      size: ['', Validators.required],
+      tpoprodId: [''],
+       size: ['', Validators.required],
     });
    
   }
@@ -91,6 +95,15 @@ export class SubCategoryComponent implements OnInit {
       prodNombre: {
         title: 'Nombre',
         editable: false,
+      },
+      prodClave: {
+        title: 'Codigo',
+        editable: false,
+      },
+      tpoprodNombre: {
+        title: 'Tipo Producto',
+        editable: false,
+        
       },
       prodCostoCompra: {
         title: 'Precio',
@@ -147,12 +160,15 @@ export class SubCategoryComponent implements OnInit {
 
   ngOnInit() {
    this.findLstProd();
+   this.findTpoLstProd();
   }
 save(){
   this.producto = this.productForm.value;
   this.producto.prodExistenciaMin = this.counter;
   this.producto.lstImg = this.lstImg;
   this.producto.prodEstatus = 'AC';
+  this.producto.tipoProducto = new TipoProductoVO();
+  this.producto.tipoProducto.tpoprodId = this.productForm.value.tpoprodId;
   this.productoService.saveProd(this.producto).subscribe(
     correcto => {this.modalService.dismissAll('Cross click');
     this.producto = new ProductoVO();
@@ -172,14 +188,17 @@ findLstProd(){
   this.productoService.getProdByestatus('AC').subscribe(
     correcto => {
       this.lstProdTmp = correcto as Array<ProductoVO>;
+      console.log(correcto)
         this.lstProdTmp.forEach(function(value) {
-         
+    
           if(value.imgDefault !== null && value.imgDefault.length > 0){
             value.img = "<img src='" + (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgDefault) as any).
             changingThisBreaksApplicationSecurity
             +"' class='imgTable'>"
           }
           value.compHtml = "<i class='fa fa-circle font-success f-12'></i>";  
+          value.tpoprodNombre = "";
+          value.tpoprodNombre = value.tipoProducto.tpoprodNombre;
     });
     this.source = new LocalDataSource(this.lstProdTmp)
   },
@@ -193,6 +212,19 @@ toggleMe(id: any): void {
   console.log(event); 
   //sessionStorage.setItem(Cosnt.PROD_CONFIG,JSON.stringify(id));
  // this.router.navigate([ 'products/physical/add-product']);
+}
+
+findTpoLstProd(){
+  this.productoService.getTpoProdByestatus('AC').subscribe(
+    correcto => {
+      this.lstTpoProd = correcto as Array<TipoProductoVO>;
+        
+  },
+   error => {
+     console.error("Usuario o contraseña invalidos");
+   } );
+
+
 }
 
 }

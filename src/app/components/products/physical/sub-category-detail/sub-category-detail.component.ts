@@ -7,6 +7,7 @@ import { ProductoVO } from 'src/app/shared/model/Producto/ProductoVO';
 import { Imagen } from 'src/app/shared/model/Imagen/Imagen';
 import { Cosnt } from 'src/app/shared/utils/Const';
 import { Router } from '@angular/router';
+import { TipoProductoVO } from 'src/app/shared/model/Producto/TipoProductoVO';
 
 @Component({
   selector: 'app-sub-category-detail',
@@ -20,6 +21,8 @@ export class SubCategoryDetailComponent implements OnInit {
   public lstImg: Imagen[] = new Array();
   prodTmp: string;
   currVerifiedLoanOfficerPhoto;
+  lstTpoProd:TipoProductoVO [] = new Array();
+  tipoProducto: TipoProductoVO = new TipoProductoVO();
   public url = [{
     img: "assets/images/user.png",
   },
@@ -41,6 +44,8 @@ export class SubCategoryDetailComponent implements OnInit {
           prodNombre: [this.producto.prodNombre, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
           prodCostoCompra: [this.producto.prodCostoCompra, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
           prodClave: [this.producto.prodClave, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          tpoprodId: [this.producto.tipoProducto.tpoprodId],
+          prodExistenciaMin: [this.producto.prodExistenciaMin],
           size: ['', Validators.required],
         });
       }else {
@@ -53,6 +58,7 @@ export class SubCategoryDetailComponent implements OnInit {
   
 
   ngOnInit(): void {
+    this. findLstProd();
   }
 
   increment() {
@@ -78,7 +84,6 @@ export class SubCategoryDetailComponent implements OnInit {
     reader.onload = (_event) => {
       if(i >= this.lstImg.length){
         let img:Imagen = new Imagen();
-        img.imgId = 0;
         img.imgUrl = reader.result.toString();
         this.lstImg.push(img);
       }else {
@@ -95,8 +100,22 @@ export class SubCategoryDetailComponent implements OnInit {
     this.producto.prodExistenciaMin = this.counter;
     this.producto.lstImg = this.lstImg;
     this.producto.prodEstatus = 'AC';
+    this.producto.tipoProducto = new TipoProductoVO();
+    this.producto.tipoProducto.tpoprodId = this.productForm.value.tpoprodId;
     this.productoService.saveProd(this.producto).subscribe(
       correcto =>  this.router.navigate([ 'products/physical/sub-category']),
+     error => {
+       console.error("Usuario o contraseña invalidos");
+     } );
+  
+  
+  }
+  findLstProd(){
+    this.productoService.getTpoProdByestatus('AC').subscribe(
+      correcto => {
+        this.lstTpoProd = correcto as Array<TipoProductoVO>;
+          
+    },
      error => {
        console.error("Usuario o contraseña invalidos");
      } );
