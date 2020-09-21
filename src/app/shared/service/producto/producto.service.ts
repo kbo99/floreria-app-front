@@ -33,4 +33,20 @@ export class ProductoService{
                     return resp;
                   });
     }
+
+    saveTpoProd(prodcuto: any){
+      let url = 'prod/savetpo';
+    return this.http.post( url, prodcuto)
+                .map( (resp: any) => {
+                  return resp;
+                });
+    }
+
+    getTpoProdByestatus(estatus: string){
+      let url = 'prod/tpoprod';
+      return this.http.post( url, estatus)
+                  .map( (resp: any) => {
+                    return resp;
+                  });
+    }
 }
