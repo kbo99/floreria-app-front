@@ -11,6 +11,9 @@ export class Cosnt {
  public static AGREGAR_PRODUCTOS: String = "ROLE_ADD_PROD";
  public static ADMIN_USUARIOS: String = "ROLE_ADMIN_USU";
 
+ public static PROD_CONFIG: string = "PROD_EDIT_CONFIG";
+ public static INS_CONFIG: string = "INS_EDIT_CONFIG";
+
 }
 
 

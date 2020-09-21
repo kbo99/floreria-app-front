@@ -1,0 +1,64 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Tipo Producto</h5>
+                </div>
+                <div class="card-body">
+                    <div class="btn-popup pull-right">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-original-title="test"
+                            data-target="#exampleModal" (click)="open(content)">Agregar Tipo Producto</button>
+                        <ng-template #content let-modal>
+                            <div class="modal-header">
+                                <h5 class="modal-title f-w-600" id="exampleModalLabel">Agregar Tipo Producto</h5>
+                                <button type="button" class="close" aria-label="Close"
+                                    (click)="modal.dismiss('Cross click')">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="needs-validation" [formGroup]="productForm" novalidate>
+                                    <div class="add-product-form">
+                                        <div class="form-group row">
+                                            <label for="validationCustom01" class="col-xl-3 col-sm-4 mb-0">Nombre
+                                                :</label>
+                                            <input class="form-control col-xl-8 col-sm-7" id="validationCustom01"
+                                                type="text" [formControl]="productForm.controls['tpoprodNombre']" required>
+                                            <div *ngIf="productForm.controls.tpoprodNombre.touched && productForm.controls.tpoprodNombre.errors?.required"
+                                                class="text text-danger">
+                                                 Name is required.
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="validationCustom01" class="col-xl-3 col-sm-4 mb-0">Descripcion
+                                                :</label>
+                                            <input class="form-control col-xl-8 col-sm-7" id="validationCustom01"
+                                                type="text" [formControl]="productForm.controls['tpoprodDecrip']" required>
+                                            <div *ngIf="productForm.controls.tpoprodDecrip.touched && productForm.controls.tpoprodDecrip.errors?.required"
+                                                class="text text-danger">
+                                                 Desc is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                           
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary"  >Guardar</button>
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                    (click)="modal.dismiss('Cross click')">Cerrar</button>
+                            </div>
+                        </ng-template>
+                    </div>
+                    <div id="batchDelete" class="category-table custom-datatable">
+                        <div class="table-responsive">
+                            <ng2-smart-table [settings]="settings" [source]="source" ></ng2-smart-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

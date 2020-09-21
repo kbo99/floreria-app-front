@@ -9,6 +9,8 @@ import { DigitalSubCategoryComponent } from './digital/digital-sub-category/digi
 import { DigitalListComponent } from './digital/digital-list/digital-list.component';
 import { DigitalAddComponent } from './digital/digital-add/digital-add.component';
 import { ProductDetailComponent } from './physical/product-detail/product-detail.component';
+import { TipoProductoComponent } from './tipo-pro/tipo-producto/tipo-producto.component';
+import { SubCategoryDetailComponent } from './physical/sub-category-detail/sub-category-detail.component';
 
 const routes: Routes = [
   {
@@ -28,6 +30,14 @@ const routes: Routes = [
         data: {
           title: "Insumos",
           breadcrumb: "Insumos"
+        }
+      },
+      {
+        path: 'physical/sub-category-detail',
+        component: SubCategoryDetailComponent,
+        data: {
+          title: "Editar Insumo",
+          breadcrumb: "Editar"
         }
       },
       {
@@ -84,6 +94,14 @@ const routes: Routes = [
         data: {
           title: "Add Products",
           breadcrumb: "Add Product"
+        }
+      },
+      {
+        path: 'tipo-pro/tipo-producto',
+        component: TipoProductoComponent,
+        data: {
+          title: "Agregar Tipo Producto",
+          breadcrumb: "Agregar Tipo"
         }
       }
     ]

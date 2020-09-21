@@ -37,6 +37,8 @@ public imgDefault: string;
 
 public img;
 
+public compHtml;
+
 constructor() {}
 
 }

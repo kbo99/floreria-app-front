@@ -9,6 +9,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { LocalDataSource } from 'ng2-smart-table';
 
 import { ProductoService} from '../../../../shared/service/producto/producto.service';
+import { Cosnt } from 'src/app/shared/utils/Const';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sub-category',
@@ -25,13 +27,14 @@ export class SubCategoryComponent implements OnInit {
   public lstProd: ProductoVO[] = new Array();
   public lstProdTmp: ProductoVO[] = new Array();
   source : LocalDataSource;
+  lastClickTime: number = 0;
   public url = [{
     img: "assets/images/user.png",
   },
   ]
 
   constructor(private modalService: NgbModal, private reference: NgbModal,private fb: FormBuilder,
-    private _sanitizer: DomSanitizer, private productoService:ProductoService) {
+    private _sanitizer: DomSanitizer, private productoService:ProductoService, private router: Router) {
     this.productForm = this.fb.group({
       prodNombre: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodCostoCompra: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
@@ -59,23 +62,31 @@ export class SubCategoryComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  onRowSelect(event) { 
-    console.log(event); 
+  onUserRowSelect(event) { 
+   
+    if (this.lastClickTime === 0) {
+      this.lastClickTime = new Date().getTime();
+    } else {
+      const change = (new Date().getTime()) - this.lastClickTime;
+      if (change < 800) {
+        sessionStorage.setItem(Cosnt.INS_CONFIG,JSON.stringify(event.data));
+    this.router.navigate([ 'products/physical/sub-category-detail']);
+      }
+      this.lastClickTime = 0;
+    }
 } 
 
-onUserRowSelect(event) { 
-    console.log(event); 
-} 
+
 
   public settings = {
     actions: false,
-    selectMode: 'multi',
     columns: {
       img: {
-        title: 'Image',
+        title: 'Imagen',
         type: 'html',
         editable: false,
-        filter: false
+        filter: false,
+        select: false,
       },
       prodNombre: {
         title: 'Nombre',
@@ -90,10 +101,10 @@ onUserRowSelect(event) {
         editable: false,
         
       },
-      status: {
+      compHtml: {
         title: 'Estatus',
         type: 'html',
-        editable: false,
+        editable: true,
         filter: false
       },
       
@@ -143,7 +154,12 @@ save(){
   this.producto.lstImg = this.lstImg;
   this.producto.prodEstatus = 'AC';
   this.productoService.saveProd(this.producto).subscribe(
-    correcto => window.location.reload(),
+    correcto => {this.modalService.dismissAll('Cross click');
+    this.producto = new ProductoVO();
+    this.productForm.reset();
+    this.counter = 0;
+    this.url[0].img = "assets/images/user.png";
+    this.findLstProd()},
    error => {
      console.error("Usuario o contraseña invalidos");
    } );
@@ -163,6 +179,7 @@ findLstProd(){
             changingThisBreaksApplicationSecurity
             +"' class='imgTable'>"
           }
+          value.compHtml = "<i class='fa fa-circle font-success f-12'></i>";  
     });
     this.source = new LocalDataSource(this.lstProdTmp)
   },
@@ -172,6 +189,10 @@ findLstProd(){
 
 
 }
-
+toggleMe(id: any): void {
+  console.log(event); 
+  //sessionStorage.setItem(Cosnt.PROD_CONFIG,JSON.stringify(id));
+ // this.router.navigate([ 'products/physical/add-product']);
+}
 
 }

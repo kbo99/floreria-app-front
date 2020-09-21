@@ -46,7 +46,7 @@ export class NavService {
 					title: 'Floreria', type: 'sub', children: [
 						{ path: '/products/physical/sub-category', title: 'Insumos', type: 'link' },
 						{ path: '/products/physical/product-list', title: 'Producto Configurado', type: 'link' },
-						{ path: '/products/physical/product-detail', title: 'Detalle Producto', type: 'link' },
+						{ path: '/products/tipo-pro/tipo-producto', title: 'Tipo Producto', type: 'link' },
 						{ path: '/products/physical/add-product', title: 'Agregar Producto', type: 'link' },
 					]
 				},

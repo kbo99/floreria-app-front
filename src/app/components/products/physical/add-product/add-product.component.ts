@@ -49,9 +49,11 @@ prodTmp:string;
       if(this.prodTmp !== null){
         
     this.producto = JSON.parse(this.prodTmp) as ProductoVO;
+    sessionStorage.removeItem(Cosnt.PROD_CONFIG);
     this.currVerifiedLoanOfficerPhoto = (this._sanitizer.bypassSecurityTrustResourceUrl(this.producto.lstImg[0].imgUrl) as any).
     changingThisBreaksApplicationSecurity;
     this.productForm = this.fb.group({
+      prodId: [this.producto.prodId],
       prodNombre: [this.producto.prodNombre, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodCostoVenta: [this.producto.prodCostoVenta, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodClave: [this.producto.prodClave, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
