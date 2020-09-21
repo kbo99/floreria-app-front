@@ -12,6 +12,7 @@ import { ProductoService} from '../../../../shared/service/producto/producto.ser
 import { Cosnt } from 'src/app/shared/utils/Const';
 import { Router } from '@angular/router';
 import { TipoProductoVO } from 'src/app/shared/model/Producto/TipoProductoVO';
+import { AuthService } from 'src/app/shared/service/auth/auth-service';
 
 @Component({
   selector: 'app-sub-category',
@@ -37,14 +38,13 @@ export class SubCategoryComponent implements OnInit {
   ]
 
   constructor(private modalService: NgbModal, private reference: NgbModal,private fb: FormBuilder,
-    private _sanitizer: DomSanitizer, private productoService:ProductoService, private router: Router) {
+    private _sanitizer: DomSanitizer, private productoService:ProductoService, private router: Router, public _authService: AuthService) {
     this.productForm = this.fb.group({
       prodNombre: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodCostoCompra: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodCostoVenta: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodClave: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      tpoprodId: [''],
-       size: ['', Validators.required],
+      tpoprodId: ['',Validators.required],
     });
    
   }
@@ -163,12 +163,14 @@ export class SubCategoryComponent implements OnInit {
    this.findTpoLstProd();
   }
 save(){
-  this.producto = this.productForm.value;
+
+    this.producto = this.productForm.value;
   this.producto.prodExistenciaMin = this.counter;
   this.producto.lstImg = this.lstImg;
   this.producto.prodEstatus = 'AC';
   this.producto.tipoProducto = new TipoProductoVO();
   this.producto.tipoProducto.tpoprodId = this.productForm.value.tpoprodId;
+  this.producto.usuario = this._authService.payload.user_name;
   this.productoService.saveProd(this.producto).subscribe(
     correcto => {this.modalService.dismissAll('Cross click');
     this.producto = new ProductoVO();
@@ -179,6 +181,8 @@ save(){
    error => {
      console.error("Usuario o contraseña invalidos");
    } );
+  
+
 
 
 }
@@ -198,7 +202,10 @@ findLstProd(){
           }
           value.compHtml = "<i class='fa fa-circle font-success f-12'></i>";  
           value.tpoprodNombre = "";
-          value.tpoprodNombre = value.tipoProducto.tpoprodNombre;
+          if(value.tipoProducto !== null){
+            value.tpoprodNombre = value.tipoProducto.tpoprodNombre;
+          }
+        
     });
     this.source = new LocalDataSource(this.lstProdTmp)
   },

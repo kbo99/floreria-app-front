@@ -44,9 +44,10 @@ export class NavService {
 			title: 'Productos', icon: 'box', type: 'sub', active: false, children: [
 				{
 					title: 'Floreria', type: 'sub', children: [
-						{ path: '/products/physical/sub-category', title: 'Insumos', type: 'link' },
-						{ path: '/products/physical/product-list', title: 'Producto Configurado', type: 'link' },
 						{ path: '/products/tipo-pro/tipo-producto', title: 'Tipo Producto', type: 'link' },
+						{ path: '/products/physical/sub-category', title: 'Insumos', type: 'link' },
+						{ path: '/products/physical/movimiento-insumo', title: 'Movimiento Insumos', type: 'link' },
+						{ path: '/products/physical/product-list', title: 'Producto Configurado', type: 'link' },
 						{ path: '/products/physical/add-product', title: 'Agregar Producto', type: 'link' },
 					]
 				},
@@ -59,12 +60,12 @@ export class NavService {
 				{ path: '/sales/transactions', title: 'Transacciones', type: 'link' },
 			]
 		},
-		{
-			title: 'Cupones', icon: 'tag', type: 'sub', active: false, children: [
-				{ path: '/coupons/list-coupons', title: 'lista de Cupones', type: 'link' },
-				{ path: '/coupons/create-coupons', title: 'Crear Cupones', type: 'link' },
-			]
-		},
+	//	{
+		//	title: 'Cupones', icon: 'tag', type: 'sub', active: false, children: [
+		//		{ path: '/coupons/list-coupons', title: 'lista de Cupones', type: 'link' },
+		//		{ path: '/coupons/create-coupons', title: 'Crear Cupones', type: 'link' },
+		//	]
+		//},
 		// {
 		// 	title: 'Pages', icon: 'clipboard', type: 'sub', active: false, children: [
 		// 		{ path: '/pages/list-page', title: 'List Page', type: 'link' },
@@ -80,18 +81,18 @@ export class NavService {
 		// 		{ path: '/menus/create-menu', title: 'Create Menu', type: 'link' },
 		// 	]
 		// },
-		{
-			title: 'Usuarios', icon: 'user-plus', type: 'sub', active: false, children: [
-				{ path: '/users/list-user', title: 'Lista de Usuarios', type: 'link' },
-				{ path: '/users/create-user', title: 'Crear Usuarios', type: 'link' },
-			]
-		},
-		{
-			title: 'Vendedores', icon: 'users', type: 'sub', active: false, children: [
-				{ path: '/vendors/list-vendors', title: 'Lista de Vnededores', type: 'link' },
-				{ path: '/vendors/create-vendors', title: 'Crear Vendedor', type: 'link' },
-			]
-		},
+		//{
+		//	title: 'Usuarios', icon: 'user-plus', type: 'sub', active: false, children: [
+		//		{ path: '/users/list-user', title: 'Lista de Usuarios', type: 'link' },
+		//		{ path: '/users/create-user', title: 'Crear Usuarios', type: 'link' },
+		//	]
+		//},
+		//{
+		//	title: 'Vendedores', icon: 'users', type: 'sub', active: false, children: [
+		//		{ path: '/vendors/list-vendors', title: 'Lista de Vnededores', type: 'link' },
+		//		{ path: '/vendors/create-vendors', title: 'Crear Vendedor', type: 'link' },
+		//	]
+		//},
 		// {
 		// 	title: 'Localization', icon: 'chrome', type: 'sub', children: [
 		// 		{ path: '/localization/translations', title: 'Translations', type: 'link' },
@@ -99,14 +100,14 @@ export class NavService {
 		// 		{ path: '/localization/taxes', title: 'Taxes', type: 'link' },
 		// 	]
 		// },
-		{
-			title: 'Reportes', path: '/reports', icon: 'bar-chart', type: 'link', active: false
-		},
-		{
-			title: 'Configuracion', icon: 'settings', type: 'sub', children: [
-				{ path: '/settings/profile', title: 'Perfirl', type: 'link' },
-			]
-		},
+		//{
+		//	title: 'Reportes', path: '/reports', icon: 'bar-chart', type: 'link', active: false
+		//},
+		//{
+		//	title: 'Configuracion', icon: 'settings', type: 'sub', children: [
+		//		{ path: '/settings/profile', title: 'Perfirl', type: 'link' },
+		//	]
+		//},
 		// {
 		// 	title: 'Invoice', path: '/invoice', icon: 'archive', type: 'link', active: false
 		// },

@@ -11,6 +11,8 @@ import { DigitalAddComponent } from './digital/digital-add/digital-add.component
 import { ProductDetailComponent } from './physical/product-detail/product-detail.component';
 import { TipoProductoComponent } from './tipo-pro/tipo-producto/tipo-producto.component';
 import { SubCategoryDetailComponent } from './physical/sub-category-detail/sub-category-detail.component';
+import { MovimientoInsumoComponent } from './physical/movimiento-insumo/movimiento-insumo.component';
+import { MovimientoInsumoDetailComponent } from './physical/movimiento-insumo-detail/movimiento-insumo-detail.component';
 
 const routes: Routes = [
   {
@@ -37,6 +39,23 @@ const routes: Routes = [
         component: SubCategoryDetailComponent,
         data: {
           title: "Editar Insumo",
+          breadcrumb: "Editar"
+        }
+      },
+      {
+        path: 'physical/movimiento-insumo',
+        component: MovimientoInsumoComponent,
+        data: {
+          title: "Movimiento Insumo",
+          breadcrumb: "Editar"
+        }
+      },
+      
+      {
+        path: 'physical/movimiento-insumo-detail',
+        component: MovimientoInsumoDetailComponent,
+        data: {
+          title: "Detalle Movimiento Insumo",
           breadcrumb: "Editar"
         }
       },

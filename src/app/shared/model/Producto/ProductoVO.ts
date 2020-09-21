@@ -41,6 +41,12 @@ public compHtml;
 
 public tpoprodNombre;
 
+public usuario: string;
+
+public  cantidadMov: number;
+
+public  tpoMov: number;
+
 constructor() {}
 
 }

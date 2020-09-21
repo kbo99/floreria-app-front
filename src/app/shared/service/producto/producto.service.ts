@@ -49,4 +49,21 @@ export class ProductoService{
                     return resp;
                   });
     }
+
+    getTpoMovByestatus(){
+      let url = 'prod/tpomov';
+      return this.http.post( url, null)
+                  .map( (resp: any) => {
+                    return resp;
+                  });
+    }
+
+
+    saveHstProd(prodcuto: any){
+      let url = 'prod/saveHtpo';
+    return this.http.post( url, prodcuto)
+                .map( (resp: any) => {
+                  return resp;
+                });
+    }
 }

@@ -25,6 +25,8 @@ import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { TipoProductoComponent } from './tipo-pro/tipo-producto/tipo-producto.component';
 import { SubCategoryDetailComponent } from './physical/sub-category-detail/sub-category-detail.component';
+import { MovimientoInsumoComponent } from './physical/movimiento-insumo/movimiento-insumo.component';
+import { MovimientoInsumoDetailComponent } from './physical/movimiento-insumo-detail/movimiento-insumo-detail.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   maxFilesize: 50,
@@ -34,7 +36,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
 
 @NgModule({
-  declarations: [CategoryComponent, SubCategoryComponent, ProductListComponent, AddProductComponent, DigitalCategoryComponent, DigitalSubCategoryComponent, DigitalListComponent, DigitalAddComponent, ProductDetailComponent, TipoProductoComponent, SubCategoryDetailComponent],
+  declarations: [CategoryComponent, SubCategoryComponent, ProductListComponent, AddProductComponent, DigitalCategoryComponent, DigitalSubCategoryComponent, DigitalListComponent, DigitalAddComponent, ProductDetailComponent, TipoProductoComponent, SubCategoryDetailComponent, MovimientoInsumoComponent, MovimientoInsumoDetailComponent],
   imports: [
     CommonModule,
     FormsModule,
