@@ -81,12 +81,12 @@ export class NavService {
 		// 		{ path: '/menus/create-menu', title: 'Create Menu', type: 'link' },
 		// 	]
 		// },
-		//{
-		//	title: 'Usuarios', icon: 'user-plus', type: 'sub', active: false, children: [
-		//		{ path: '/users/list-user', title: 'Lista de Usuarios', type: 'link' },
-		//		{ path: '/users/create-user', title: 'Crear Usuarios', type: 'link' },
-		//	]
-		//},
+		{
+			title: 'Usuarios', icon: 'user-plus', type: 'sub', active: false, children: [
+				{ path: '/users/list-user', title: 'Lista de Usuarios', type: 'link' },
+				{ path: '/users/create-user', title: 'Crear Usuarios', type: 'link' },
+			]
+		},
 		//{
 		//	title: 'Vendedores', icon: 'users', type: 'sub', active: false, children: [
 		//		{ path: '/vendors/list-vendors', title: 'Lista de Vnededores', type: 'link' },

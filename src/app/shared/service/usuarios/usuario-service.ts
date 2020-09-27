@@ -18,11 +18,28 @@ export class UsuarioService {
 
 
   generateUserN(usuario: Usuario){
-    let url = 'usuario/generateUsuer';
+    let url = 'usuarios/guardar';
+    console.log("Guardando Usuario");
     return this.http.post( url, usuario)
                 .map( (resp: any) => {
                   return resp;
                 });
   }
  
+  findAll() {
+    let url = 'usuarios/findAll';
+    return this.http.get( url, {})
+                .map( (resp: any) => {
+                  return resp;
+                });
+  }
+
+  findAllGrupos() {
+    let url = "usuarios/grupo/findAll";
+    return this.http.get( url, {})
+                .map( (resp: any) => {
+                  return resp;
+                });
+  }
+  
 }
