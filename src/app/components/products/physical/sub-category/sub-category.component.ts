@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { categoryDB } from 'src/app/shared/tables/category';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProductoVO } from '../../../../shared/model/Producto/ProductoVO';
 import { Imagen } from '../../../../shared/model/Imagen/Imagen';
@@ -13,7 +13,7 @@ import { Cosnt } from 'src/app/shared/utils/Const';
 import { Router } from '@angular/router';
 import { TipoProductoVO } from 'src/app/shared/model/Producto/TipoProductoVO';
 import { AuthService } from 'src/app/shared/service/auth/auth-service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-sub-category',
   templateUrl: './sub-category.component.html',
@@ -23,6 +23,7 @@ export class SubCategoryComponent implements OnInit {
   public closeResult: string;
   public sub_categories = []
   public productForm: FormGroup;
+  public tpoForm: FormGroup;
   public counter: number = 1;
   public producto: ProductoVO;
   public lstImg: Imagen[] = new Array();
@@ -38,13 +39,19 @@ export class SubCategoryComponent implements OnInit {
   ]
 
   constructor(private modalService: NgbModal, private reference: NgbModal,private fb: FormBuilder,
-    private _sanitizer: DomSanitizer, private productoService:ProductoService, private router: Router, public _authService: AuthService) {
+    private _sanitizer: DomSanitizer, private productoService:ProductoService, private router: Router, 
+    public _authService: AuthService, private activeModal: NgbActiveModal) {
     this.productForm = this.fb.group({
       prodNombre: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodCostoCompra: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodCostoVenta: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodClave: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       tpoprodId: ['',Validators.required],
+    });
+
+    this.tpoForm = this.fb.group({
+      tpoprodNombre: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      tpoprodDecrip: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
     });
    
   }
@@ -57,6 +64,19 @@ export class SubCategoryComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+
+  opentpo(content) {
+
+    this.reference.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.activeModal.close();
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  public dismiss(): void {
+    this.activeModal.dismiss(false);
+}
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -227,6 +247,26 @@ findTpoLstProd(){
       this.lstTpoProd = correcto as Array<TipoProductoVO>;
         
   },
+   error => {
+     console.error("Usuario o contraseña invalidos");
+   } );
+
+
+}
+
+saveTpo(){
+  this.tipoProducto = new TipoProductoVO();
+  this.tipoProducto = this.tpoForm.value;
+  this.tipoProducto.tpoprodEstatus = 'AC';
+  this.productoService.saveTpoProd(this.tipoProducto).subscribe(
+    correcto =>  {this.tipoProducto = new TipoProductoVO();
+    this.  findTpoLstProd();
+    this.tpoForm.reset();
+    this.dismiss();
+    Swal.fire({
+      title: 'Aviso',
+      text: 'Se guardo Tipo Producto con Exito \n',
+    });},
    error => {
      console.error("Usuario o contraseña invalidos");
    } );

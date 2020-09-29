@@ -44,22 +44,21 @@ export class NavService {
 			title: 'Productos', icon: 'box', type: 'sub', active: false, children: [
 				{
 					title: 'Floreria', type: 'sub', children: [
-						{ path: '/products/tipo-pro/tipo-producto', title: 'Tipo Producto', type: 'link' },
 						{ path: '/products/physical/sub-category', title: 'Insumos', type: 'link' },
 						{ path: '/products/physical/movimiento-insumo', title: 'Movimiento Insumos', type: 'link' },
 						{ path: '/products/physical/product-list', title: 'Producto Configurado', type: 'link' },
 						{ path: '/products/physical/add-product', title: 'Agregar Producto', type: 'link' },
 					]
-				},
+				},  
 				
 			]
 		},
-		{
-			title: 'Ventas', icon: 'dollar-sign', type: 'sub', active: false, children: [
-				{ path: '/sales/orders', title: 'Ordenes', type: 'link' },
-				{ path: '/sales/transactions', title: 'Transacciones', type: 'link' },
-			]
-		},
+		//{
+			//title: 'Ventas', icon: 'dollar-sign', type: 'sub', active: false, children: [
+			//	{ path: '/sales/orders', title: 'Ordenes', type: 'link' },
+			//	{ path: '/sales/transactions', title: 'Transacciones', type: 'link' },
+			//]
+		//},
 	//	{
 		//	title: 'Cupones', icon: 'tag', type: 'sub', active: false, children: [
 		//		{ path: '/coupons/list-coupons', title: 'lista de Cupones', type: 'link' },

@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/shared/service/auth/auth-service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Cosnt } from 'src/app/shared/utils/Const';
 import { ProductoVO } from 'src/app/shared/model/Producto/ProductoVO';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-movimiento-insumo',
@@ -13,7 +15,11 @@ import { ProductoVO } from 'src/app/shared/model/Producto/ProductoVO';
   styleUrls: ['./movimiento-insumo.component.scss']
 })
 export class MovimientoInsumoComponent implements OnInit {
+  public generalForm: FormGroup;
 
+  public model: NgbDateStruct;
+  public date: { year: number, month: number };
+  public modelFooter: NgbDateStruct;
   public settings = {
     actions: false,
     columns: {
@@ -57,7 +63,10 @@ export class MovimientoInsumoComponent implements OnInit {
   lstProdTmp: ProductoVO [] = new Array();
 
   constructor(private _sanitizer: DomSanitizer, private productoService:ProductoService, 
-    private router: Router, public _authService: AuthService) { }
+    private router: Router, public _authService: AuthService,
+    private formBuilder: FormBuilder, private calendar: NgbCalendar) {
+      this.createGeneralForm();
+    }
 
   ngOnInit(): void {
     this.findLstProd();
@@ -105,6 +114,13 @@ findLstProd(){
    } );
 
 
+}
+
+createGeneralForm() {
+  this.generalForm = this.formBuilder.group({
+    start_date: [''],
+    end_date: [''],
+  });
 }
 
 }

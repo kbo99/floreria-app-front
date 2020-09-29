@@ -58,6 +58,25 @@
             <input class="form-control col-xl-8 col-sm-7" id="validationCustom03"
             type="number" [formControl]="productForm.controls['prodExistenciaMin']" disabled required="">
         </div>
+
+        <div class="form-group row">
+            <label class="col-xl-3 col-sm-4 mb-0">Cantidad Movimiento :</label>
+            <div class="qty-box1">
+                <div class="input-group">
+                    <i class="fa fa-minus btnGtr1" (click)=decrement()></i>
+                    <input class="touchspin1 text-center" name="counter" [value]="counter"
+                        type="text">
+                    <i class="fa fa-plus btnLess1" (click)=increment()></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Tipo Movimiento :</label>
+            <select placeholder="Tipo Movimiento" class="form-control col-xl-8 col-sm-7" formControlName="tmpId">
+                <option *ngFor="let mo of lstTpoMo" [value]="mo.tmpId">{{mo.tmpDesc}}</option>
+              </select>
+        </div>
        
     </div>
 </form>
