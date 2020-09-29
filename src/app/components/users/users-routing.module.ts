@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListUserComponent } from './list-user/list-user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 const routes: Routes = [
   {
@@ -22,7 +23,10 @@ const routes: Routes = [
           title: "Crear Usuario",
           breadcrumb: "Crear Usuario"
         }
-      }
+      },
+     {
+      path: 'edit-user', component: EditUserComponent
+     } 
     ]
   }
 ];

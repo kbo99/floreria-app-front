@@ -41,20 +41,18 @@ export class CustomHttpInterceptor implements HttpInterceptor {
           newHeader.append(key,request.headers.getAll(key) );
         }
         
-        request.url.indexOf("oauth/token")
+       // request.url.indexOf("oauth/token")
+       
         if (token) {
             const authReq = request.clone({
               url: URL,
               headers: request.headers.set('Authorization', 'Bearer ' + token)
             });
-      
             return next.handle(authReq)
             .map(res => this.responseBuilt(res))  // manejo de respuestas
             .catch((e) => (this.errorHandled(e))) // manejo de errores
             .toPromise();
-            headerSettings['Authorization'] = 'Bearer ' + token;
-          // headerSettings['Content-Type'] = 'application/json';
-        }
+        } 
          
         newHeader = new HttpHeaders(headerSettings);
         
@@ -76,7 +74,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
    * @param res 
    */
   private async responseBuilt(res: any) {
-    // console.log("Response ", res)
+    //console.log("Response ", res)
     if (res instanceof HttpResponse) {
         if (res.body['response']) {
           //console.log("result body interceptor:", res.body); 

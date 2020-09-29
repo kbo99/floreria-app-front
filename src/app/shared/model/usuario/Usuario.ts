@@ -1,3 +1,4 @@
+import { Persona } from '../Persona/Persona';
 import { Grupo } from "./Grupo";
 import { PayLoad } from './PayLoad';
 
@@ -5,13 +6,17 @@ export class Usuario {
     constructor(
         public usuId: number = 0,
         public usuUsuario: string = "",
-        public password: string ="",
+        public usuPassword: string ="",
         public grupos: Grupo [ ] = [],
         public perId: number = 0,
-         public usuEstatus: string = "AC"
+        public usuEstatus: string = "AC",
+        public persona?: Persona
 
-    ) {}
-    
+    ) {
+        persona = new Persona();
+    }
+
+
     public cargaUsuario(payload: PayLoad): void {
         this.usuUsuario = payload.user_name;
         this.perId = payload.perId;
@@ -38,5 +43,18 @@ export class Usuario {
             } 
         });
         return valid; 
+    }
+
+    public addGroup(role: Grupo): void {
+        var existe: boolean = false;
+        this.grupos.forEach(grupo => {
+            // console.log("Role: " + grupo.grpNombre);
+             if (grupo.grpNombre == role.grpNombre) existe = true; 
+         });
+         if (!existe) this.grupos.push(role);
+    }
+
+    public removeGroup(role: Grupo): void {
+        this.grupos.filter(item => item.grpNombre != role.grpNombre);
     }
 }

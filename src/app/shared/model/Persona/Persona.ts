@@ -12,7 +12,7 @@ export class Persona {
     
     constructor() { }
     
-    get perNombreApe (): string {
+    get perNombreApe(): string {
     var nombre: string= "";
     nombre = this.perApePate != null ? this.perApePate : "";
     nombre = this.perApeMat != null ? nombre + " " + this.perApeMat : nombre;

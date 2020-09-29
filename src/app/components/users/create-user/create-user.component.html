@@ -4,51 +4,60 @@
         <div class="col-sm-12">
             <div class="card tab2-card">
                 <div class="card-header">
-                    <h5> Add User</h5>
+                    <h5>Crear Usuario</h5>
                 </div>
                 <div class="card-body tab2-card">
                     <ngb-tabset class="tab-coupon">
                         <ngb-tab title="Account">
                             <ng-template ngbTabContent>                                                                                                                                        <div class="tab-pane fade active show" id="account" role="tabpanel"
                                         aria-labelledby="account-tab">
-                                    <form [formGroup]="accountForm" class="needs-validation user-add" novalida>
-                                        <h4>Account Details</h4>
+                                    <form [formGroup]="accountForm" class="needs-validation user-add" (ngSubmit)="onSubmit()">
+                                        <h4>Detalles de Cuenta</h4>
                                         <div class="form-group row">
-                                            <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span>
-                                                First Name</label>
-                                            <input class="form-control col-xl-8 col-md-7" id="validationCustom0"
-                                                type="text" required="">
+                                            <label for="perNombre" class="col-xl-3 col-md-4"><span>*</span>
+                                                Nombre</label>
+                                            <input class="form-control col-xl-8 col-md-7" 
+                                                type="text" required formControlName="perNombre">
                                         </div>
                                         <div class="form-group row">
-                                            <label for="validationCustom1" class="col-xl-3 col-md-4"><span>*</span> Last
-                                                Name</label>
-                                            <input class="form-control col-xl-8 col-md-7" id="validationCustom1"
-                                                type="text" required="">
+                                            <label for="perApePate" class="col-xl-3 col-md-4"><span>*</span> 
+                                                Apellido Paterno</label>
+                                            <input class="form-control col-xl-8 col-md-7" 
+                                                type="text" required formControlName="perApePate">
                                         </div>
                                         <div class="form-group row">
-                                            <label for="validationCustom2" class="col-xl-3 col-md-4"><span>*</span>
+                                            <label for="perApeMate" class="col-xl-3 col-md-4"><span>*</span> 
+                                                Apellido Materno</label>
+                                            <input class="form-control col-xl-8 col-md-7" 
+                                                type="text" required formControlName="perApeMate">
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="perEmail" class="col-xl-3 col-md-4"><span>*</span>
                                                 Email</label>
-                                            <input class="form-control col-xl-8 col-md-7" id="validationCustom2"
-                                                type="text" required="">
+                                            <input class="form-control col-xl-8 col-md-7" 
+                                                type="text" required formControlName="perEmail">
                                         </div>
                                         <div class="form-group row">
-                                            <label for="validationCustom3" class="col-xl-3 col-md-4"><span>*</span>
+                                            <label for="password" class="col-xl-3 col-md-4"><span>*</span>
                                                 Password</label>
-                                            <input class="form-control col-xl-8 col-md-7" id="validationCustom3"
-                                                type="password" required="">
+                                            <input class="form-control col-xl-8 col-md-7" 
+                                                type="password" formControlName="password" required>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="validationCustom4" class="col-xl-3 col-md-4"><span>*</span>
-                                                Confirm Password</label>
-                                            <input class="form-control col-xl-8 col-md-7" id="validationCustom4"
-                                                type="password" required="">
+                                            <label for="confirmPwd" class="col-xl-3 col-md-4"><span>*</span>
+                                                Confirmar  Password</label>
+                                            <input class="form-control col-xl-8 col-md-7" 
+                                                type="password" required formControlName="confirmPwd" required>
+                                        </div>
+                                        <div class="pull-right">
+                                            <button type="submit" [disabled]="!accountForm.valid"  class="btn btn-primary">Guardar</button>
                                         </div>
                                     </form>
                                 </div>
                             </ng-template>
                         </ngb-tab>
                         <ngb-tab>
-                            <ng-template ngbTabTitle>Permission
+                            <ng-template ngbTabTitle>Permisos
                                 <ng-template ngbTabContent>
                                     <form [formGroup]="permissionForm"
                                         class="needs-validation user-add" novalidate="">
@@ -167,9 +176,7 @@
                             </ng-template>
                         </ngb-tab>
                     </ngb-tabset>
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-primary">Save</button>
-                    </div>
+                   
                 </div>
             </div>
         </div>

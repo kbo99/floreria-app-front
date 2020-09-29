@@ -8,9 +8,9 @@
             <div class="btn-popup pull-right">
                 <a class="btn btn-secondary" [routerLink]="'/users/create-user'">Create User</a>
             </div>
-            <div id="batchDelete" class="category-table custom-datatable transcation-datatable user-image">
+            <div id="batchDelete" class="category-table custom-datatable">
                 <div class="table-responsive">
-                    <ng2-smart-table [settings]="settings" [source]="user_list"></ng2-smart-table>
+                    <ng2-smart-table [settings]="settings" [source]="user_list" (edit)="onEdit($event)"></ng2-smart-table>
                 </div>
             </div>
         </div>
