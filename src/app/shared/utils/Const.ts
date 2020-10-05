@@ -14,7 +14,7 @@ export class Cosnt {
  public static PROD_CONFIG: string = "PROD_EDIT_CONFIG";
  public static INS_CONFIG: string = "INS_EDIT_CONFIG";
 
-
+ public static PROD_ADD_IN: string = "PROD_ADD_CONFIG";
  public static USUARIO_EDIT: string = "usuario_editar";
 
 }

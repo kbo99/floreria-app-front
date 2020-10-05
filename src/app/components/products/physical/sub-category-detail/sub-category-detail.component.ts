@@ -79,14 +79,13 @@ export class SubCategoryDetailComponent implements OnInit {
   }
 
   increment() {
-    this.counter2 += 1;
-    this.counter = this.counter + this.counter2;
+    this.counter  += 1;
   }
 
   decrement() {
-    this.counter2 -= 1;
-    this.counter = this.counter - this.counter2;
+    this.counter  -= 1;
   }
+
 
   //FileUpload
   readUrl(event: any, i) {

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { CKEditorModule } from 'ngx-ckeditor';
@@ -27,7 +27,13 @@ import { TipoProductoComponent } from './tipo-pro/tipo-producto/tipo-producto.co
 import { SubCategoryDetailComponent } from './physical/sub-category-detail/sub-category-detail.component';
 import { MovimientoInsumoComponent } from './physical/movimiento-insumo/movimiento-insumo.component';
 import { MovimientoInsumoDetailComponent } from './physical/movimiento-insumo-detail/movimiento-insumo-detail.component';
-
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatMomentDateModule } from "@angular/material-moment-adapter"; 
+import { MatNativeDateModule } from '@angular/material/core';
+import { AddInsumoProdComponent } from './physical/add-insumo-prod/add-insumo-prod.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   maxFilesize: 50,
   url: 'https://httpbin.org/post',
@@ -36,7 +42,12 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
 
 @NgModule({
-  declarations: [CategoryComponent, SubCategoryComponent, ProductListComponent, AddProductComponent, DigitalCategoryComponent, DigitalSubCategoryComponent, DigitalListComponent, DigitalAddComponent, ProductDetailComponent, TipoProductoComponent, SubCategoryDetailComponent, MovimientoInsumoComponent, MovimientoInsumoDetailComponent],
+  declarations: [CategoryComponent, SubCategoryComponent,
+     ProductListComponent, AddProductComponent, 
+     DigitalCategoryComponent, DigitalSubCategoryComponent, 
+     DigitalListComponent, DigitalAddComponent, ProductDetailComponent, 
+     TipoProductoComponent, SubCategoryDetailComponent, MovimientoInsumoComponent, 
+     MovimientoInsumoDetailComponent, AddInsumoProdComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -46,14 +57,22 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     Ng2SmartTableModule,
     NgbModule,
     DropzoneModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
+    MatCheckboxModule,  
+    MatRadioModule,
     GalleryModule.forRoot()
   ],
   providers: [
     {
       provide: DROPZONE_CONFIG,
-      useValue: DEFAULT_DROPZONE_CONFIG
+      useValue: DEFAULT_DROPZONE_CONFIG,
+      
     },
-    NgbActiveModal
+    NgbActiveModal,
+    DatePipe
   ]
 })
 export class ProductsModule { }

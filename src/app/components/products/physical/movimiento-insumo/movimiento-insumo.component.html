@@ -10,36 +10,59 @@
                     <h5>Movimiento Insumos</h5>
                 </div>
                 <div class="card-body">
-                    <form class="needs-validation" [formGroup]="generalForm" novalidate>
+                    <form class="needs-validation" [formGroup]="generalForm">
                         <div class="add-product-form">
+                      
                             <div class="form-group row">
-                                <label class="col-xl-3 col-md-4">Start Date</label>
+                                <label class="col-xl-3 col-md-4">Fecha Inicial</label>
                                 <div class="input-group col-md-7 input-grp-p">
-                                    <input class="datepicker-here form-control digits" ngbDatepicker
-                                        formControlName="start_date" #f="ngbDatepicker">
-                                    <div class="input-group-append">
-                                        <button class="btn calendar" (click)="f.toggle()" type="button"><i
-                                                class="fa fa-calendar"></i></button>
-                                                <label class="mb-1">End Date</label>
-                                <div class="input-group col-md-7 input-grp-p">
-                                    <input class="datepicker-here form-control digits" ngbDatepicker
-                                        formControlName="end_date" #c="ngbDatepicker">
-                                    <div class="input-group-append">
-                                        <button class="btn calendar" (click)="c.toggle()" type="button"><i
-                                                class="fa fa-calendar"></i></button>
+                                    <input matInput [matDatepicker]="picker"  formControlName="fechaIni">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker  [startAt]="minDate" ></mat-datepicker>
+                                    <div *ngIf="generalForm.controls.fechaIni.touched && generalForm.controls.fechaIni.errors?.required"
+                                    class="text text-danger">
+                                     Fecha Final es Requerida
                                     </div>
-                                </div>
+                                    <div *ngIf="generalForm.controls.fechaIni.touched && generalForm.controls.fechaIni.errors?.required"
+                                    class="text text-danger">
+                                     Fecha Inicial es Requerida
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                
+                                <label class="col-xl-3 col-md-4">Fecha Final</label>
+                                <div class="input-group col-md-7 input-grp-p">
+                                    <input matInput [matDatepicker]="pickerFin"  formControlName="fechaFin"  >
+                                    <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                                    <mat-datepicker #pickerFin   ></mat-datepicker>
+                                    <div *ngIf="generalForm.controls.fechaFin.touched && generalForm.controls.fechaFin.errors?.required"
+                                    class="text text-danger">
+                                     Fecha Final es Requerida
+                                    </div>
+                                </div>             
+                            </div>
+                      
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0">Nombre Insumo
+                                    :</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom01"
+                                    type="text" [formControl]="generalForm.controls['prodNombre']" >          
+                            </div>
+                            <div class="form-group row">
+                                <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Tipo Movimiento :</label>
+                                <select placeholder="Tipo Movimiento" class="form-control col-xl-8 col-sm-7" formControlName="tmpId">
+                                    <option *ngFor="let mo of lstTpoMo" [value]="mo.tmpId">{{mo.tmpDesc}}</option>
+                                  </select>
                             </div>
                         </div>
-                    </form>
-                    <div class="btn-popup pull-right">
-                        
-                    <div id="batchDelete" class="category-table custom-datatable">
+                        <div class="form-group row mb-0">
+                            <div class="product-buttons col-sm-8 offset-xl-3 offset-sm-4">
+                                <button type="button" class="btn btn-primary mr-1" (click)= "find()">Buscar</button>
+                                <button type="button" class="btn btn-light" (click)= "reset()">Limpiar</button>
+                            </div>
+                        </div>
+                     </form>
+           <div id="batchDelete" class="category-table custom-datatable">
                         <div class="table-responsive">
                             <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)"></ng2-smart-table>
                         </div>

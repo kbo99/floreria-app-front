@@ -47,6 +47,7 @@ public  cantidadMov: number;
 
 public  tpoMov: number;
 
+public lstProdHijo: ProductoVO[] = new Array();
 constructor() {}
 
 }

@@ -1,0 +1,72 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Detalle Insumo</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                            <img [src]="currVerifiedLoanOfficerPhoto" alt="" class="img-fluid image_zoom_1">
+                        </div>
+                    </div>
+<br>
+<form class="needs-validation" [formGroup]="productForm" novalidate>
+    <div class="add-product-form">
+      
+        <div class="form-group row">
+            <label for="validationCustom01" class="col-xl-3 col-sm-4 mb-0">Nombre
+                :</label>
+            <input class="form-control col-xl-8 col-sm-7" id="validationCustom01"
+                type="text" [formControl]="productForm.controls['prodNombre']" required>
+            <div *ngIf="productForm.controls.prodNombre.touched && productForm.controls.prodNombre.errors?.required"
+                class="text text-danger">
+                 Name is required.
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Codigo :</label>
+            <input class="form-control col-xl-8 col-sm-7" id="validationCustom02"
+                type="text" [formControl]="productForm.controls['prodClave']" required="" disabled>
+         </div>
+
+        <div class="form-group row">
+            <label class="col-xl-3 col-sm-4 mb-0">Cantidad Insumo :</label>
+            <div class="qty-box1">
+                <div class="input-group">
+                    <i class="fa fa-minus btnGtr1" (click)=decrement()></i>
+                    <input class="touchspin1 text-center" name="counter" [value]="counter"
+                        type="text">
+                    <i class="fa fa-plus btnLess1" (click)=increment()></i>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-xl-3 col-sm-4 mb-0">Insumo Opcional:</label>
+            <mat-radio-group aria-label="Insumo Requerido :" class="col-xl-3 col-sm-4 mb-0" formControlName="requerido">
+                <mat-radio-button value="1" >Si   </mat-radio-button>
+                <mat-radio-button value="2" class="leftradio">No</mat-radio-button>
+              </mat-radio-group>
+        </div>
+    </div>
+</form>
+<div class="modal-footer">
+  <button class="btn btn-secondary" type="button" data-dismiss="modal" (click)="save()"
+        >Agregar Insumo Sustituto</button>
+</div>
+<br>
+<h3>Seleccionar Insumo</h3>
+<div id="batchDelete" class="category-table custom-datatable">
+    <div class="table-responsive">
+        <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)"></ng2-smart-table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary"  >Regresar</button>
+    <button class="btn btn-secondary" type="button" data-dismiss="modal" (click)="save()"
+        >Guardar</button>
+</div>
+</div>
+</div></div></div></div>

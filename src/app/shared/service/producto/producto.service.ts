@@ -66,4 +66,12 @@ export class ProductoService{
                   return resp;
                 });
     }
+
+    findByParams(params: any){
+      let url = 'prod/findByParam';
+      return this.http.post( url, params)
+                  .map( (resp: any) => {
+                    return resp;
+                  });
+    }
 }

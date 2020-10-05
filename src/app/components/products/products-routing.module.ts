@@ -13,6 +13,7 @@ import { TipoProductoComponent } from './tipo-pro/tipo-producto/tipo-producto.co
 import { SubCategoryDetailComponent } from './physical/sub-category-detail/sub-category-detail.component';
 import { MovimientoInsumoComponent } from './physical/movimiento-insumo/movimiento-insumo.component';
 import { MovimientoInsumoDetailComponent } from './physical/movimiento-insumo-detail/movimiento-insumo-detail.component';
+import { AddInsumoProdComponent } from './physical/add-insumo-prod/add-insumo-prod.component';
 
 const routes: Routes = [
   {
@@ -121,6 +122,15 @@ const routes: Routes = [
         data: {
           title: "Agregar Tipo Producto",
           breadcrumb: "Agregar Tipo"
+        }
+      }
+      ,
+      {
+        path: 'physical/add-pin',
+        component: AddInsumoProdComponent,
+        data: {
+          title: "Agregar Insumo a Producto",
+          breadcrumb: "Agregar Insumo"
         }
       }
     ]

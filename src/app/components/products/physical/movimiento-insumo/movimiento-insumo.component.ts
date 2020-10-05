@@ -6,9 +6,13 @@ import { AuthService } from 'src/app/shared/service/auth/auth-service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Cosnt } from 'src/app/shared/utils/Const';
 import { ProductoVO } from 'src/app/shared/model/Producto/ProductoVO';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-
+import { TipoProductoVO } from 'src/app/shared/model/Producto/TipoProductoVO';
+import { TpoMovProdVO } from 'src/app/shared/model/Producto/TpoMovProdVO';
+import Swal from 'sweetalert2';
+import {RequestPerson}  from 'src/app/shared/model/Request/RequestPerson';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-movimiento-insumo',
   templateUrl: './movimiento-insumo.component.html',
@@ -17,59 +21,72 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 export class MovimientoInsumoComponent implements OnInit {
   public generalForm: FormGroup;
 
-  public model: NgbDateStruct;
-  public date: { year: number, month: number };
-  public modelFooter: NgbDateStruct;
+  minDate: Date;
+  maxDate: Date;
+  public date: Date;
+
+  source : LocalDataSource;
+  public dataFilter: RequestPerson;
   public settings = {
     actions: false,
     columns: {
-      img: {
-        title: 'Imagen',
-        type: 'html',
-        editable: false,
-        filter: false,
-        select: false,
-      },
+      
       prodNombre: {
         title: 'Nombre',
         editable: false,
       },
-      prodClave: {
-        title: 'Codigo',
+      tpoMovimiento: {
+        title: 'Tipo Movimiento',
         editable: false,
       },
-      tpoprodNombre: {
-        title: 'Tipo Producto',
+      hpsCantAnterior: {
+        title: 'Cantidad Anterior',
         editable: false,
-        
       },
-      prodExistenciaMin: {
+      hpsCantidadMovimiento: {
+        title: 'Cantidad Movimiento',
+        editable: false,
+      },
+      prodExistenciaActual: {
         title: 'Existencia',
         editable: false,
         
       },
-      compHtml: {
-        title: 'Estatus',
-        type: 'html',
-        editable: true,
-        filter: false
+      usuario: {
+        title: 'Usuario',
+        editable: false,
+        
+      },
+      hpsFecha: {
+        title: 'Fecha',
+        editable: false,
+        valuePrepareFunction: (date) => { 
+          var raw = new Date(date);
+  
+          var formatted = this.datePipe.transform(raw, 'dd MMM yyyy');
+          return formatted; 
+        }
       },
       
     },
   };
 
-  source : LocalDataSource;
   lastClickTime: number = 0;
-  lstProdTmp: ProductoVO [] = new Array();
-
+  lstTpoProd:TipoProductoVO [] = new Array();
+  tipoProducto: TipoProductoVO = new TipoProductoVO();
+  lstTpoMo:TpoMovProdVO [] = new Array();
   constructor(private _sanitizer: DomSanitizer, private productoService:ProductoService, 
     private router: Router, public _authService: AuthService,
-    private formBuilder: FormBuilder, private calendar: NgbCalendar) {
+    private formBuilder: FormBuilder, private calendar: NgbCalendar,  private datePipe: DatePipe) {
       this.createGeneralForm();
+      const currentYear = new Date().getFullYear();
+      
+  this.minDate = new Date(currentYear, new Date().getMonth(), new Date().getDay()- 1);
+  this.maxDate = new Date();
     }
 
   ngOnInit(): void {
-    this.findLstProd();
+    this.findLstMov();
   }
 
   onUserRowSelect(event) { 
@@ -87,27 +104,24 @@ export class MovimientoInsumoComponent implements OnInit {
 } 
 
  
-findLstProd(){
-  const _this = this;
-  this.productoService.getProdByestatus('AC').subscribe(
+
+
+
+createGeneralForm() {
+  this.generalForm = this.formBuilder.group({
+    fechaIni: [(new Date()).toISOString(),Validators.required],
+    fechaFin: [(new Date()).toISOString(),Validators.required],
+    prodNombre: [''],
+    tmpId: [''],
+  });
+  this.find();
+}
+
+findTpoLstProd(){
+  this.productoService.getTpoProdByestatus('AC').subscribe(
     correcto => {
-      this.lstProdTmp = correcto as Array<ProductoVO>;
-      console.log(correcto)
-        this.lstProdTmp.forEach(function(value) {
-    
-          if(value.imgDefault !== null && value.imgDefault.length > 0){
-            value.img = "<img src='" + (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgDefault) as any).
-            changingThisBreaksApplicationSecurity
-            +"' class='imgTable'>"
-          }
-          value.compHtml = "<i class='fa fa-circle font-success f-12'></i>";  
-          value.tpoprodNombre = "";
-          if(value.tipoProducto !== null){
-            value.tpoprodNombre = value.tipoProducto.tpoprodNombre;
-          }
+      this.lstTpoProd = correcto as Array<TipoProductoVO>;
         
-    });
-    this.source = new LocalDataSource(this.lstProdTmp)
   },
    error => {
      console.error("Usuario o contraseña invalidos");
@@ -116,11 +130,50 @@ findLstProd(){
 
 }
 
-createGeneralForm() {
-  this.generalForm = this.formBuilder.group({
-    start_date: [''],
-    end_date: [''],
-  });
+
+findLstMov(){
+  this.productoService.getTpoMovByestatus().subscribe(
+    correcto => {
+      this.lstTpoMo = correcto as Array<TpoMovProdVO>;
+        
+  },
+   error => {
+     console.error("Usuario o contraseña invalidos");
+   } );
+
+
+}
+
+find(){
+
+      if(!this.generalForm.valid){
+        
+        Swal.fire({
+          title: 'Aviso',
+          text: 'Fechas Incorrectas \n',
+        });
+
+        return;
+      }else {
+        
+        this.dataFilter = this.generalForm.value;
+        this.dataFilter.extraParamMap = {};
+        this.dataFilter.extraParamMap["nombre"] = this.generalForm.value.prodNombre;
+        this.dataFilter.extraParamMap["tpomov"]  = +this.generalForm.value.tmpId;
+     
+        this.productoService.findByParams(this.dataFilter).subscribe(
+          correcto => {
+            this.source = new LocalDataSource(correcto ) 
+        },
+         error => {
+           console.error("Usuario o contraseña invalidos");
+         } );
+      }
+}
+
+reset(){
+  this.generalForm.reset();
+  this.createGeneralForm();
 }
 
 }

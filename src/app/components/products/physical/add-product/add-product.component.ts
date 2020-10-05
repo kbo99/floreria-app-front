@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ProductoService} from '../../../../shared/service/producto/producto.service';
 import { Cosnt } from '../../../../shared/utils/Const';
+import { AuthService } from 'src/app/shared/service/auth/auth-service';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -43,22 +44,49 @@ export class AddProductComponent implements OnInit {
 
 prodTmp:string;
   constructor(private fb: FormBuilder, public http: HttpClient, 
-    private _sanitizer: DomSanitizer, private router: Router, private productoService:ProductoService) {
-      this.prodTmp  = sessionStorage.getItem(Cosnt.PROD_CONFIG);
+    private _sanitizer: DomSanitizer, private router: Router, 
+    private productoService:ProductoService, private auth:AuthService) {
+
       
-      if(this.prodTmp !== null){
-        
-    this.producto = JSON.parse(this.prodTmp) as ProductoVO;
-    sessionStorage.removeItem(Cosnt.PROD_CONFIG);
-    this.currVerifiedLoanOfficerPhoto = (this._sanitizer.bypassSecurityTrustResourceUrl(this.producto.lstImg[0].imgUrl) as any).
-    changingThisBreaksApplicationSecurity;
+      if(sessionStorage.getItem(Cosnt.PROD_CONFIG) !== null 
+      || sessionStorage.getItem(Cosnt.PROD_ADD_IN) !== null){
+        this.parseParamSession(sessionStorage.getItem(Cosnt.PROD_CONFIG) !== null ? Cosnt.PROD_CONFIG :
+        Cosnt.PROD_ADD_IN);
+       
+       }else{
+        this.productForm = this.fb.group({
+          prodId: [0],
+          prodNombre: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          prodCostoVenta: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          prodDescrip: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+        });
+       }
+      
+   
+  }
+
+  parseParamSession(param:any){
+    this.producto = JSON.parse(sessionStorage.getItem(param)) as ProductoVO;
+    sessionStorage.removeItem(param);
+    this.initComp();
+    if(param === Cosnt.PROD_ADD_IN){
+      this.findLstProd();
+    }
+  }
+
+  initComp(){
+
+    if(this.producto.lstImg !== undefined && this.producto.lstImg !== null && 
+      this.producto.lstImg.length > 0){
+
+      this.currVerifiedLoanOfficerPhoto = (this._sanitizer.bypassSecurityTrustResourceUrl(this.producto.lstImg[0].imgUrl) as any).
+      changingThisBreaksApplicationSecurity;
+    }
     this.productForm = this.fb.group({
       prodId: [this.producto.prodId],
       prodNombre: [this.producto.prodNombre, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodCostoVenta: [this.producto.prodCostoVenta, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      prodClave: [this.producto.prodClave, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       prodDescrip: [this.producto.prodDescrip, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      size: ['', Validators.required],
     });
     let indexImg:number = 0;
     const _this = this;
@@ -69,19 +97,11 @@ prodTmp:string;
         indexImg++;
      
     });
-       }else{
-        this.productForm = this.fb.group({
-          prodNombre: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-          prodCostoVenta: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-          prodClave: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-          prodDescrip: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-          size: ['', Validators.required],
-        });
-       }
-      
-   
-  }
+
   
+  }
+
+
   public get imgg() : SafeHtml {
      return this._sanitizer.bypassSecurityTrustResourceUrl(this._imgg);
   }
@@ -128,6 +148,8 @@ save(){
   this.producto.prodExistenciaMin = this.counter;
   this.producto.lstImg = this.lstImg;
   this.producto.prodEstatus = 'PC';
+  this.producto.usuario = this.auth.payload.user_name;
+  this.producto.lstProdHijo = this.lstProdTmp; 
   this.productoService.saveProd(this.producto).subscribe(
     correcto => { Swal.fire({
       title: 'Aviso',
@@ -145,26 +167,18 @@ save(){
 public settings = {
   actions: false,
   columns: {
-    img: {
-      title: 'Imagen',
-      type: 'html',
+    prodClave: {
+      title: 'Codigo',
       editable: false,
-      filter: false
     },
     prodNombre: {
       title: 'Nombre',
       editable: false,
     },
-    prodExistenciaMin: {
+    cantidadMov: {
       title: 'Cantidad',
       editable: false,
       
-    },
-    status: {
-      title: 'Estatus',
-      type: 'html',
-      editable: false,
-      filter: false
     },
     
   },
@@ -172,26 +186,43 @@ public settings = {
 
 
 findLstProd(){
-  const _this = this;
-  this.productoService.getProdByestatus('AC').subscribe(
-    correcto => {
-      this.lstProdTmp = correcto as Array<ProductoVO>;
+  this.lstProdTmp = this.producto.lstProdHijo as Array<ProductoVO>;
         this.lstProdTmp.forEach(function(value) {
          
-          if(value.imgDefault !== null && value.imgDefault.length > 0){
-            value.img = "<img src='" + (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgDefault) as any).
+          if(value.imgDefault !== null && value.imgDefault !== undefined && value.imgDefault.length > 0){
+            value.img = "<img src='" + (this._sanitizer.bypassSecurityTrustResourceUrl(value.imgDefault) as any).
             changingThisBreaksApplicationSecurity
             +"' class='imgTable'>"
           }
     });
     this.source = new LocalDataSource(this.lstProdTmp)
-  },
-   error => {
-     console.error("Usuario o contraseña invalidos");
-   } );
+ 
 }
 
 insumos(){
-  this.router.navigate([ 'products/physical/sub-category']);
+ 
+  let produc: ProductoVO = new ProductoVO()
+  produc = this.productForm.value as ProductoVO;
+  const _this = this;
+  produc.prodExistenciaMin = this.counter;
+  console.log(this.lstImg)
+  if(this.lstImg !== undefined  ){
+    this.lstImg.forEach(item => {
+      if(_this.producto.lstImg === undefined){
+        _this.producto.lstImg = new Array();
+      }
+      _this.producto.lstImg.push(item);
+    })
+  }
+  
+  
+  produc.lstProdHijo = this.lstProdTmp;  
+  produc.lstImg = new Array();
+  console.log(produc)
+  produc.lstImg = this.producto.lstImg;
+  sessionStorage.setItem(Cosnt.INS_CONFIG,JSON.stringify(produc));
+  this.router.navigate([ 'products/physical/add-pin']);
+ 
+  
 }
 }

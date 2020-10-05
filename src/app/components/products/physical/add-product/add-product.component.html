@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="col-xl-7">  
-                            <form class="needs-validation" [formGroup]="productForm" novalidate>
+                            <form class="needs-validation" [formGroup]="productForm" >
                                 <div class="add-product-form">
                                     <div class="form-group row">
                                         <label for="validationCustom01" class="col-xl-3 col-sm-4 mb-0">Nombre
@@ -42,7 +42,7 @@
                                     <div class="form-group row">
                                         <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Precio :</label>
                                         <input class="form-control col-xl-8 col-sm-7" id="validationCustom02"
-                                            type="number" [formControl]="productForm.controls['prodCostoVenta']" required="">
+                                            type="number" [formControl]="productForm.controls['prodCostoVenta']" required>
                                         <div *ngIf="productForm.controls.prodCostoVenta.touched && productForm.controls.prodCostoVenta.errors?.required"
                                             class="text text-danger">
                                              Price is required.
@@ -53,7 +53,7 @@
                                         <label class="col-xl-3 col-sm-4"> Descripcion :</label>
                                         <div class="col-xl-8 col-sm-7 pl-0 description-sm">
                                             <input class="form-control col-xl-8 col-sm-7" id="validationCustom03"
-                                            type="text" [formControl]="productForm.controls['prodDescrip']" required="">
+                                            type="text" [formControl]="productForm.controls['prodDescrip']" required>
                                         </div>
                                     </div>
                                 </div>
@@ -65,8 +65,15 @@
                     </div>
                     <div class="form-group row mb-0">
                         <div class="product-buttons col-sm-8 offset-xl-3 offset-sm-4">
-                            <button type="button" class="btn btn-primary mr-1" (click)= "save()">Add</button>
-                            <button type="button" class="btn btn-light">Discard</button>
+                            <button type="button" class="btn btn-primary mr-1" (click)= "save()">Guardar</button>
+                            <button type="button" class="btn btn-light" (click) = "insumos()">Agregar Insumo</button>
+                        </div>
+                    </div>
+                    <br><br>
+                    <h3>Insumos configurados</h3>
+                    <div id="batchDelete" class="category-table custom-datatable">
+                        <div class="table-responsive">
+                            <ng2-smart-table [settings]="settings" [source]="source" ></ng2-smart-table>
                         </div>
                     </div>
                 </div>
