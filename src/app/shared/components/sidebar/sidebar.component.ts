@@ -17,7 +17,7 @@ export class SidebarComponent {
   public fileurl: any;
 
   constructor(private router: Router, public navServices: NavService, private _authService: AuthService) {
-    this.navServices.items.subscribe(menuItems => {
+    this.navServices.getMenu().subscribe(menuItems => {
       this.menuItems = menuItems
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {

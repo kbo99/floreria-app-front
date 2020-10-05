@@ -1,8 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, HostListener, Inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
+import { AuthService } from './auth/auth-service';
 import { WINDOW } from "./windows.service";
 // Menu
 export interface Menu {
+	menId?:Number;
+	grpId?: Number;
 	path?: string;
 	title?: string;
 	icon?: string;
@@ -23,12 +27,23 @@ export class NavService {
 	public screenWidth: any
 	public collapseSidebar: boolean = false
 
-	constructor(@Inject(WINDOW) private window) {
+	constructor(@Inject(WINDOW) private window, 
+	private  http: HttpClient, private _authService: AuthService) {
 		this.onResize();
 		if (this.screenWidth < 991) {
 			this.collapseSidebar = true
 		}
 	}
+
+	getMenu():Observable<any> {
+		let url = 'usuarios/menu/getmenu';
+		return this.http.post( url, this._authService.getGrupos())
+					.map( (resp: any) => {
+						console.log("Menu: ", resp);
+						
+					  return resp;
+					});
+	  }
 
 	// Windows width
 	@HostListener("window:resize", ['$event'])
