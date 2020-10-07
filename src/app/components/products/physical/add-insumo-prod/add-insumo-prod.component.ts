@@ -208,7 +208,7 @@ export class AddInsumoProdComponent implements OnInit {
 
   onUserRowSelect(event) { 
     this.productForm.reset();
-   this.counter = 0;
+   this.counter = 1;
    this.producto = event.data as ProductoVO;
    sessionStorage.removeItem(Cosnt.INS_CONFIG);
    if(this.producto.lstImg !== undefined && this.producto.lstImg.length > 0){

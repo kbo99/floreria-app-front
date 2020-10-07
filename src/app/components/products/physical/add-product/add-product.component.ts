@@ -187,41 +187,33 @@ public settings = {
 
 findLstProd(){
   this.lstProdTmp = this.producto.lstProdHijo as Array<ProductoVO>;
-        this.lstProdTmp.forEach(function(value) {
-         
-          if(value.imgDefault !== null && value.imgDefault !== undefined && value.imgDefault.length > 0){
-            value.img = "<img src='" + (this._sanitizer.bypassSecurityTrustResourceUrl(value.imgDefault) as any).
-            changingThisBreaksApplicationSecurity
-            +"' class='imgTable'>"
-          }
-    });
+   
     this.source = new LocalDataSource(this.lstProdTmp)
  
 }
 
 insumos(){
+if(this.producto === undefined)
+  this.producto = new ProductoVO();  
+
+
+  this.producto.prodCostoVenta = this.productForm.value.prodCostoVenta;
+  this.producto.prodDescrip = this.productForm.value.prodDescrip;
+  this.producto.prodNombre = this.productForm.value.prodNombre;
+
+this.producto.prodExistenciaMin = this.counter;
+
+
  
-  let produc: ProductoVO = new ProductoVO()
-  produc = this.productForm.value as ProductoVO;
-  const _this = this;
-  produc.prodExistenciaMin = this.counter;
-  console.log(this.lstImg)
-  if(this.lstImg !== undefined  ){
-    this.lstImg.forEach(item => {
-      if(_this.producto.lstImg === undefined){
-        _this.producto.lstImg = new Array();
-      }
-      _this.producto.lstImg.push(item);
-    })
-  }
-  
-  
-  produc.lstProdHijo = this.lstProdTmp;  
-  produc.lstImg = new Array();
-  console.log(produc)
-  produc.lstImg = this.producto.lstImg;
-  sessionStorage.setItem(Cosnt.INS_CONFIG,JSON.stringify(produc));
-  this.router.navigate([ 'products/physical/add-pin']);
+if(this.lstImg.length > 0){
+  this.lstImg.forEach(item =>{
+    this.producto.lstImg.push(item);
+  });
+}
+console.log(this.producto.lstImg);
+this.producto.lstProdHijo = this.lstProdTmp
+sessionStorage.setItem(Cosnt.INS_CONFIG,JSON.stringify(this.producto));
+this.router.navigate([ 'products/physical/add-pin']);
  
   
 }

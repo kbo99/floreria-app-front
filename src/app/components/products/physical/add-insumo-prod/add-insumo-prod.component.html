@@ -52,9 +52,11 @@
         </div>
     </div>
 </form>
+<br>
 <div class="modal-footer">
-  <button class="btn btn-secondary" type="button" data-dismiss="modal" (click)="save()"
-        >Agregar Insumo Sustituto</button>
+    <button type="button" class="btn btn-primary"  >Regresar</button>
+    <button class="btn btn-secondary" type="button" data-dismiss="modal" (click)="save()"
+        >Guardar</button>
 </div>
 <br>
 <h3>Seleccionar Insumo</h3>
@@ -63,10 +65,6 @@
         <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)"></ng2-smart-table>
     </div>
 </div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-primary"  >Regresar</button>
-    <button class="btn btn-secondary" type="button" data-dismiss="modal" (click)="save()"
-        >Guardar</button>
-</div>
+
 </div>
 </div></div></div></div>
