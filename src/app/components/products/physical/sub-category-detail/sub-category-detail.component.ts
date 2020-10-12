@@ -83,9 +83,18 @@ export class SubCategoryDetailComponent implements OnInit {
   }
 
   decrement() {
-    this.counter  -= 1;
+    if (this.counter > 0) {
+      this.counter  -= 1;
+    }
   }
 
+  onChangeEvent_CantMov(event: any){
+    this.counter = event.target.value;
+  }
+
+  onlyNumberKey(event) { 
+    return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57; 
+  }
 
   //FileUpload
   readUrl(event: any, i) {
@@ -151,7 +160,5 @@ export class SubCategoryDetailComponent implements OnInit {
      error => {
        console.error("Usuario o contraseña invalidos");
      } );
-  
-  
   }
 }

@@ -65,7 +65,7 @@
                 <div class="input-group">
                     <i class="fa fa-minus btnGtr1" (click)=decrement()></i>
                     <input class="touchspin1 text-center" name="counter" [value]="counter"
-                        type="text">
+                        type="text" (change)="onChangeEvent_CantMov($event)" (keypress)="onlyNumberKey($event)">
                     <i class="fa fa-plus btnLess1" (click)=increment()></i>
                 </div>
             </div>
@@ -98,6 +98,7 @@
     <button type="button" class="btn btn-primary"  >Regresar</button>
     <button class="btn btn-secondary" type="button" data-dismiss="modal" (click)="save()"
         >Guardar</button>
+        
 </div>
 </div>
-</div></div></div></div>
+</div></div></div></div>    

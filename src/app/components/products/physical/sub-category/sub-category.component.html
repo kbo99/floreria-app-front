@@ -70,12 +70,11 @@
                                                 <div class="input-group">
                                                     <i class="fa fa-minus btnGtr1" (click)=decrement()></i>
                                                     <input class="touchspin1 text-center" name="counter" [value]="counter"
-                                                        type="text">
+                                                        type="text" (change)="onChangeEvent_NumProd($event)" (keypress)="onlyNumberKey($event)">
                                                     <i class="fa fa-plus btnLess1" (click)=increment()></i>
                                                 </div>
                                             </div>
                                         </div>
-                                       
                                     </div>
                                 </form>
                             <div class="add-product">
