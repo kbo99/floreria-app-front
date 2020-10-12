@@ -150,9 +150,19 @@ export class SubCategoryComponent implements OnInit {
   }
 
   decrement() {
-    this.counter -= 1;
+    if (this.counter > 1) {
+      this.counter -= 1;
+    }
   }
 
+  onChangeEvent_NumProd(event: any){
+    this.counter = event.target.value;
+  }
+
+  onlyNumberKey(event) { 
+    return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57; 
+  }
+  
   //FileUpload
   readUrl(event: any, i) {
     if (event.target.files.length === 0)
@@ -201,10 +211,6 @@ save(){
    error => {
      console.error("Usuario o contraseña invalidos");
    } );
-  
-
-
-
 }
  
 findLstProd(){
