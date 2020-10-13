@@ -161,4 +161,9 @@ export class SubCategoryDetailComponent implements OnInit {
        console.error("Usuario o contraseña invalidos");
      } );
   }
+
+  return(){
+    console.log("Regresa a Insumo");
+    this.router.navigate([ 'products/physical/sub-category']);
+  }
 }

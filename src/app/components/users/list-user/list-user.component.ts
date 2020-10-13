@@ -63,7 +63,7 @@ export class ListUserComponent implements OnInit {
   };
 
   onEdit(event) {
-    console.log("Editar: ", event.data )
+    console.log("Editar: ", event.data );
     sessionStorage.setItem(Cosnt.USUARIO_EDIT, JSON.stringify(event.data));
     this.router.navigate(['/users/edit-user']);
   }
