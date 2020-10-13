@@ -103,7 +103,17 @@ export class SubCategoryComponent implements OnInit {
 
 
   public settings = {
-    actions: false,
+    mode: 'external',
+    actions: {
+      columnTitle: 'Detalle',
+      add: false,
+      edit: true,
+      delete: false,
+      position: 'right',
+      custom: [
+        { name: 'editrecord', title: '&nbsp;&nbsp;<i class="fa  fa-pencil"></i>'}
+      ]
+    },
     columns: {
       img: {
         title: 'Imagen',
@@ -134,13 +144,12 @@ export class SubCategoryComponent implements OnInit {
         editable: false,
         
       },
-      compHtml: {
+      /*compHtml: {
         title: 'Estatus',
         type: 'html',
         editable: true,
         filter: false
-      },
-      
+      },*/      
     },
   };
 
@@ -276,8 +285,11 @@ saveTpo(){
    error => {
      console.error("Usuario o contraseña invalidos");
    } );
-
-
 }
 
+  onEdit(event) {
+    console.log("Editar: ", event.data );
+    sessionStorage.setItem(Cosnt.INS_CONFIG,JSON.stringify(event.data));
+    this.router.navigate([ 'products/physical/sub-category-detail']);
+  }
 }

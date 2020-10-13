@@ -93,15 +93,20 @@
                             </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary"  (click)= "save()">Guardar</button>
                                 <button class="btn btn-secondary" type="button" data-dismiss="modal"
-                                    (click)="modal.dismiss('Cross click')">Cerrar</button>
+                                    (click)="modal.dismiss('Cross click')">Cancelar</button>
+                                <button type="button" class="btn btn-primary"  (click)= "save()">Guardar</button>
                             </div>
                         </ng-template>
                     </div>
                     <div id="batchDelete" class="category-table custom-datatable">
                         <div class="table-responsive">
-                            <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)"></ng2-smart-table>
+                            <ng2-smart-table [settings]="settings" 
+                            [source]="source" 
+                            (userRowSelect)="onUserRowSelect($event)"
+                            (edit)="onEdit($event)">
+
+                            </ng2-smart-table>
                         </div>
                     </div>
                 </div>
