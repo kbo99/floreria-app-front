@@ -105,13 +105,14 @@ export class SubCategoryComponent implements OnInit {
   public settings = {
     mode: 'external',
     actions: {
-      columnTitle: 'Detalle',
+      columnTitle: 'Acciones',
       add: false,
       edit: true,
-      delete: false,
+      delete: true,
       position: 'right',
       custom: [
-        { name: 'editrecord', title: '&nbsp;&nbsp;<i class="fa  fa-pencil"></i>'}
+        { name: 'editrecord', title: '&nbsp;&nbsp;<i class="fa  fa-pencil"></i>'},
+        { name: 'deleterecord', title: '&nbsp;&nbsp;<i class="fa  fa-delete"></i>'}
       ]
     },
     columns: {
@@ -287,9 +288,54 @@ saveTpo(){
    } );
 }
 
+/**
+ * Metodo para redireccionar al detalle del insumo
+ * @param event 
+ */
   onEdit(event) {
     console.log("Editar: ", event.data );
     sessionStorage.setItem(Cosnt.INS_CONFIG,JSON.stringify(event.data));
     this.router.navigate([ 'products/physical/sub-category-detail']);
+  }
+
+  /**
+   * Metodo para realizar la eliminacion logica de un Insumo
+   * @param event trae un objeto de tipo producto
+   */
+  onDelete(event) {
+    //Solictamos confirmacion para realizar la eliminacion logica
+    Swal.fire({
+      title: '',
+      text: "¿Estas seguro de eliminar el Insumo '"+ event.data.prodNombre +"'?",
+      icon: 'warning',      
+      confirmButtonColor: '#0f9b9b',
+      cancelButtonColor: '#ff4d53',
+      confirmButtonText: 'Eiminar',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+         //Pintamos el log
+      console.log("Eliminar Insumo: ", event.data );
+      //Cambiampos el estatus para realizar la eliminación logica
+      event.data.prodEstatus = "SU";
+
+      //Ejecutamos la actualizacion del producto(insumo)
+      this.productoService.updateProd(event.data).subscribe(
+        correcto =>  {
+        this.producto = correcto as ProductoVO;
+        this.findLstProd();
+        Swal.fire(
+          'Eliminado!',
+          "El Insumo '" + this.producto.prodNombre + "' se elimino correctemante",
+          'success'
+        );},
+       error => {
+         console.error("No se ha podido eliminar el Insumo seleccionado");
+       } );
+      }
+    })
+
+
   }
 }

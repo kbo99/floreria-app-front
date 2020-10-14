@@ -74,4 +74,12 @@ export class ProductoService{
                     return resp;
                   });
     }
+
+    updateProd(prodcuto: any){
+      let url = 'prod/updateProd';
+    return this.http.post( url, prodcuto)
+                .map( (resp: any) => {
+                  return resp;
+                });
+    }
 }
