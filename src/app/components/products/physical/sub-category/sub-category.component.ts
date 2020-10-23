@@ -225,6 +225,12 @@ save(){
  
 findLstProd(){
   const _this = this;
+  
+  Swal.fire({
+    title:'Cargando.....'
+  });
+
+  Swal.showLoading();
   this.productoService.getProdByestatus('AC').subscribe(
     correcto => {
       this.lstProdTmp = correcto as Array<ProductoVO>;
@@ -244,6 +250,7 @@ findLstProd(){
         
     });
     this.source = new LocalDataSource(this.lstProdTmp)
+    Swal.close();
   },
    error => {
      console.error("Usuario o contraseña invalidos");
@@ -335,7 +342,5 @@ saveTpo(){
        } );
       }
     })
-
-
   }
 }
