@@ -39,31 +39,40 @@ export class SubCategoryDetailComponent implements OnInit {
       if(this.prodTmp !== null){
         this.counter = 0;
         this.producto = JSON.parse(this.prodTmp) as ProductoVO;
+
+        //Se recupera todo el detalle del producto, para obtener las imagenes relacionadas
+        this.productoService.findByProdId(this.producto.prodId).subscribe(
+          correcto => {
+            this.producto =  correcto as ProductoVO;
+            console.log(correcto);
+
+            if(this.producto.lstImg && this.producto.lstImg !== undefined && this.producto.lstImg.length > 0){
+              this.url[0].img = (this._sanitizer.bypassSecurityTrustResourceUrl(this.producto.lstImg[0].imgUrl) as any).
+              changingThisBreaksApplicationSecurity;
+              this.currVerifiedLoanOfficerPhoto = (this._sanitizer.bypassSecurityTrustResourceUrl(this.producto.lstImg[0].imgUrl) as any).
+              changingThisBreaksApplicationSecurity;
+            }else {
+              this.currVerifiedLoanOfficerPhoto = (this._sanitizer.bypassSecurityTrustResourceUrl(this.url[0].img) as any).
+              changingThisBreaksApplicationSecurity;
+            }
+           
+            if(this.producto.tipoProducto === undefined || this.producto.tipoProducto === null){
+              this.producto.tipoProducto = new TipoProductoVO();
+              this.producto.tipoProducto.tpoprodId = 0;
+            }
+            this.counter= 0;
+            this.productForm = this.fb.group({
+              prodId: [this.producto.prodId],
+              prodNombre: [this.producto.prodNombre, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+              prodCostoCompra: [this.producto.prodCostoCompra, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+              prodClave: [this.producto.prodClave, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+              tpoprodId: [this.producto.tipoProducto.tpoprodId],
+              prodExistenciaMin: [this.producto.prodExistenciaMin],
+              tmpId: [''],
+            });
+          });
+
         sessionStorage.removeItem(Cosnt.INS_CONFIG);
-        if(this.producto.lstImg !== undefined && this.producto.lstImg.length > 0){
-          this.url[0].img = (this._sanitizer.bypassSecurityTrustResourceUrl(this.producto.lstImg[0].imgUrl) as any).
-          changingThisBreaksApplicationSecurity;
-          this.currVerifiedLoanOfficerPhoto = (this._sanitizer.bypassSecurityTrustResourceUrl(this.producto.lstImg[0].imgUrl) as any).
-          changingThisBreaksApplicationSecurity;
-        }else {
-          this.currVerifiedLoanOfficerPhoto = (this._sanitizer.bypassSecurityTrustResourceUrl(this.url[0].img) as any).
-          changingThisBreaksApplicationSecurity;
-        }
-       
-        if(this.producto.tipoProducto === undefined || this.producto.tipoProducto === null){
-          this.producto.tipoProducto = new TipoProductoVO();
-          this.producto.tipoProducto.tpoprodId = 0;
-        }
-        this.counter= 0;
-        this.productForm = this.fb.group({
-          prodId: [this.producto.prodId],
-          prodNombre: [this.producto.prodNombre, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-          prodCostoCompra: [this.producto.prodCostoCompra, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-          prodClave: [this.producto.prodClave, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-          tpoprodId: [this.producto.tipoProducto.tpoprodId],
-          prodExistenciaMin: [this.producto.prodExistenciaMin],
-          tmpId: [''],
-        });
       }else {
         this.router.navigate([ 'products/physical/sub-category']);
       }

@@ -76,29 +76,36 @@ prodTmp:string;
 
   initComp(){
 
-    if(this.producto.lstImg !== undefined && this.producto.lstImg !== null && 
-      this.producto.lstImg.length > 0){
+     //Se recupera todo el detalle del producto, para obtener las imagenes relacionadas
+     this.productoService.findByProdId(this.producto.prodId).subscribe(
+      correcto => {
+        this.producto =  correcto as ProductoVO;
+        console.log(correcto);
 
-      this.currVerifiedLoanOfficerPhoto = (this._sanitizer.bypassSecurityTrustResourceUrl(this.producto.lstImg[0].imgUrl) as any).
-      changingThisBreaksApplicationSecurity;
-    }
-    this.productForm = this.fb.group({
-      prodId: [this.producto.prodId],
-      prodNombre: [this.producto.prodNombre, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      prodCostoVenta: [this.producto.prodCostoVenta, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      prodDescrip: [this.producto.prodDescrip, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-    });
-    let indexImg:number = 0;
-    const _this = this;
-    this.producto.lstImg.forEach(function(value) {
-     _this.url[indexImg].img =    
-    (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgUrl) as any).
-        changingThisBreaksApplicationSecurity;
-        indexImg++;
-     
-    });
+        if(this.producto.lstImg && this.producto.lstImg !== undefined && this.producto.lstImg !== null && 
+          this.producto.lstImg.length > 0){
+    
+          this.currVerifiedLoanOfficerPhoto = (this._sanitizer.bypassSecurityTrustResourceUrl(this.producto.lstImg[0].imgUrl) as any).
+          changingThisBreaksApplicationSecurity;
+        }
+        this.productForm = this.fb.group({
+          prodId: [this.producto.prodId],
+          prodNombre: [this.producto.prodNombre, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          prodCostoVenta: [this.producto.prodCostoVenta, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+          prodDescrip: [this.producto.prodDescrip, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+        });
+        let indexImg:number = 0;
+        const _this = this;
+        this.producto.lstImg.forEach(function(value) {
+         _this.url[indexImg].img =    
+        (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgUrl) as any).
+            changingThisBreaksApplicationSecurity;
+            indexImg++;
+         
+        });
 
-  
+
+      });
   }
 
 
