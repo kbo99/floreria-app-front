@@ -1,0 +1,80 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5>Busca Clientes</h5>
+        </div>
+        <div class="card-body tab2-card">
+            <ngb-tabset class="tab-coupon">
+                <ngb-tab title="ID">
+                    <ng-template ngbTabContent>
+                        <form [formGroup]="idForm"  class="needs-validation" (ngSubmit)="onSubmitId()">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group row">
+                                        <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span>
+                                            ID</label>
+                                        <input class="form-control col-md-7" formControlName="id"
+                                            id="validationCustom0" type="text" required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <button type="submit" [disabled]="!idForm.valid"  class="btn btn-primary">Buscar</button>
+                            </div>
+                        </form>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab>
+                    <ng-template ngbTabTitle>Nombres</ng-template>
+                    <ng-template ngbTabContent>
+                        <form [formGroup]="nombresForm" class="needs-validation" (ngSubmit)="onSubmitNombre()">
+                            <div class="form-group row">
+                                <label for="validationCustom3" class="col-xl-3 col-md-4">Nombre(s)</label>
+                                <input class="form-control col-md-7" formControlName="nombre" 
+                                    type="text" >
+                            </div>
+                            <div class="form-group row">
+                                <label for="validationCustom3" class="col-xl-3 col-md-4">Apellido Paterno</label>
+                                <input class="form-control col-md-7" formControlName="apePater" 
+                                    type="text" >
+                            </div>
+                            <div class="pull-right">
+                                <button type="submit" [disabled]="!nombresForm.valid"  class="btn btn-primary">Buscar</button>
+                            </div>
+                        </form>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab>
+                    <ng-template ngbTabTitle>RFC</ng-template>
+                    <ng-template ngbTabContent>
+                        <form [formGroup]="rfcForm" class="needs-validation" (ngSubmit)="onSubmitRfc()">
+                            <div class="form-group row">
+                                <label for="validationCustom3" class="col-xl-3 col-md-4">RFC</label>
+                                <input class="form-control col-md-7" formControlName="rfc" type="text" required>
+                            </div>
+                            <div class="pull-right">
+                                <button type="submit" [disabled]="!rfcForm.valid"  class="btn btn-primary">Buscar</button>
+                            </div>
+                        </form>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card tab2-card">
+                    <div class="card-header">
+                        <h5>Direcciones</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="listPer" class="category-table custom-datatable">
+                            <div class="table-responsive">
+                                <ng2-smart-table [settings]="settings" [source]="personas" (edit)="onEditDireccion($event)"></ng2-smart-table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
