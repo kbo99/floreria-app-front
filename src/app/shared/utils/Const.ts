@@ -17,7 +17,19 @@ export class Cosnt {
  public static PROD_ADD_IN: string = "PROD_ADD_CONFIG";
  public static USUARIO_EDIT: string = "usuario_editar";
 
-public static amazon_s3_endpoint : string = "https://s3.us-east-2.amazonaws.com/gyft.flowers.produccion/";
+ public static DIRECCION_EDIT: string = "DIRECCION_EDIT";
+ public static PERSONA_EDIT: string = "PERSONA_EDIT";
+
+ public static PATH_ORIGEN: string = "ORIGEN";
+
+ public static getRandomInt(superior:number, inferior:number):number {
+   var numPosibilidades = superior - inferior;
+   var aleatorio = Math.random() * (numPosibilidades + 1);
+   aleatorio = Math.floor(aleatorio);
+   return (inferior + aleatorio) * -1;
+ }
+
+ public static amazon_s3_endpoint : string = "https://s3.us-east-2.amazonaws.com/gyft.flowers.produccion/";
 
 }
 

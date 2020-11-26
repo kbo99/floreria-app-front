@@ -1,0 +1,73 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-header">
+                    <h5>{{title}}</h5>
+                </div>
+                <div class="card-body tab2-card">
+                    <form [formGroup]="personatForm" class="needs-validation user-add" (ngSubmit)="onSubmit()">
+                        <h4>Detalles de Cliente</h4>
+                        <button class="btn btn-sm disabled" [disabled]="true">
+                            No. de Cliente {{persona.perId}}</button>
+                        <div class="form-group row">
+                            <label for="perNombre" class="col-xl-3 col-md-4"><span>*</span>
+                                Nombre(s)</label>
+                            <input class="form-control col-xl-8 col-md-7" [(ngModel)]="persona.perNombre"
+                                type="text" required formControlName="perNombre">
+                        </div>
+                        <div class="form-group row">
+                            <label for="perApePate" class="col-xl-3 col-md-4"><span>*</span> 
+                                Apellido Paterno</label>
+                            <input class="form-control col-xl-8 col-md-7" [(ngModel)]="persona.perApePate"
+                                type="text" required formControlName="perApePate">
+                        </div>
+                        <div class="form-group row">
+                            <label for="perApeMat" class="col-xl-3 col-md-4">
+                                Apellido Materno</label>
+                            <input class="form-control col-xl-8 col-md-7" [(ngModel)]="persona.perApeMat"
+                                type="text" required formControlName="perApeMat">
+                        </div>
+                        <div class="form-group row">
+                            <label for="perEmail" class="col-xl-3 col-md-4"><span>*</span>
+                                Email</label>
+                            <input class="form-control col-xl-8 col-md-7" [(ngModel)]="persona.perEmail"
+                                type="text" required formControlName="perEmail">
+                        </div>
+                        <div class="form-group row">
+                            <label for="perRfc" class="col-xl-3 col-md-4">
+                                RFC</label>
+                            <input class="form-control col-xl-8 col-md-7" [(ngModel)]="persona.perRfc"
+                                type="text" formControlName="perRfc" >
+                        </div>
+                        <div class="pull-right">
+                            <button type="submit" [disabled]="!personatForm.valid"  class="btn btn-primary">Guardar</button>
+                        </div>
+                        
+                    </form>
+
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-header">
+                    <h5>Direcciones</h5>
+                </div>
+                <div class="card-body">
+                    <div class="btn-popup pull-right">
+                        <a class="btn btn-secondary" (click)="addDireccion()">Agregar Direccion</a>
+                    </div>
+                    <div id="direcciones" class="category-table custom-datatable">
+                        <div class="table-responsive">
+                            <ng2-smart-table [settings]="settings" [source]="persona.direccions" (edit)="onEditDireccion($event)"></ng2-smart-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
