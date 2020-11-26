@@ -116,14 +116,14 @@ export class SubCategoryComponent implements OnInit {
       ]
     },
     columns: {
-      /*img: {
+      img: {
         title: 'Imagen',
         type: 'html',
         editable: false,
         filter: false,
         select: false,
-      },*/
-      prodId:{title: 'ID',editable:false},
+      },
+      /*prodId:{title: 'ID',editable:false},*/
       prodNombre: {
         title: 'Nombre',
         editable: false,
@@ -212,6 +212,7 @@ save(){
   this.producto.tipoProducto = new TipoProductoVO();
   this.producto.tipoProducto.tpoprodId = this.productForm.value.tpoprodId;
   this.producto.usuario = this._authService.payload.user_name;
+  this.producto.prodEsInsumo = true;
   this.productoService.saveProd(this.producto).subscribe(
     correcto => {this.modalService.dismissAll('Cross click');
     this.producto = new ProductoVO();
@@ -234,17 +235,17 @@ findLstProd(){
   //Se muestra la venta de cargando
   Swal.showLoading();
 
-  this.productoService.getProdByestatus('AC').subscribe(
+  this.productoService.getProdByestatus('AC', true).subscribe(
     correcto => {
       this.lstProdTmp = correcto as Array<ProductoVO>;
       console.log(correcto)
         this.lstProdTmp.forEach(function(value) {
     
-          /*if(value.imgDefault !== null && value.imgDefault.length > 0){
-            value.img = "<img src='" + (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgDefault) as any).
-            changingThisBreaksApplicationSecurity
-            +"' class='imgTable'>"
-          }*/
+          if(value.imgDefault !== null && value.imgDefault.length > 0){
+            value.img = "<img src='" + (_this._sanitizer.bypassSecurityTrustResourceUrl(
+              Cosnt.amazon_s3_endpoint + value.imgDefault) as any).changingThisBreaksApplicationSecurity
+                        +"' class='imgTable'>"
+          }
           value.compHtml = "<i class='fa fa-circle font-success f-12'></i>";  
           value.tpoprodNombre = "";
           if(value.tipoProducto !== null){

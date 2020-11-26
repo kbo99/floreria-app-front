@@ -26,7 +26,7 @@ public prodExistenciaMin: number;
 
 public prodDesc: number;
 
-
+public prodEsInsumo : boolean;
 
 public prodClave: string;
 

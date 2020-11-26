@@ -25,7 +25,8 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {}
   findLstProd(){
     const _this = this;
-    this.productoService.getProdByestatus('PC').subscribe(
+    //Obtemos los insumos de la tabla productos, con estatus ACTIVO (AC) y especificamos que el producto NO es insumo (false)
+    this.productoService.getProdByestatus('AC', false).subscribe(
       correcto => {
         this.lstProd = correcto as Array<ProductoVO>;
         this.lstProd.forEach(function(value) {

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { OrdersComponent } from './orders/orders.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { AddCotizacionComponent } from './add-cotizacion/add-cotizacion.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,14 @@ const routes: Routes = [
         data: {
           title: "Transactions",
           breadcrumb: "Transactions"
+        }
+      },
+      {
+        path: 'add-cotizacion',
+        component: AddCotizacionComponent,
+        data: {
+          title: "Agregar Nueva Orden",
+          breadcrumb: "Agregar Orden"
         }
       }
     ]

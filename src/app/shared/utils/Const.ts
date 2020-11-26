@@ -17,6 +17,8 @@ export class Cosnt {
  public static PROD_ADD_IN: string = "PROD_ADD_CONFIG";
  public static USUARIO_EDIT: string = "usuario_editar";
 
+public static amazon_s3_endpoint : string = "https://s3.us-east-2.amazonaws.com/gyft.flowers.produccion/";
+
 }
 
 
