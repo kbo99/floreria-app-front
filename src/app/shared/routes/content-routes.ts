@@ -52,6 +52,13 @@ export const content: Routes = [
     }
   },
   {
+    path: 'clientes',
+    loadChildren: () => import('../../components/clientes/cliente.module').then(m => m.ClientesModule),
+    data: {
+      breadcrumb: "Clientes"
+    }
+  },
+  {
     path: 'vendors',
     loadChildren: () => import('../../components/vendors/vendors.module').then(m => m.VendorsModule),
     data: {

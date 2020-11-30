@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-header">
+                    <h5>{{title}}</h5>
+                </div>
+                <div class="card-body tab2-card">
+                    <form [formGroup]="dirForm" class="needs-validation user-add" (ngSubmit)="onSubmit()">
+                        <div class="form-group col-md-3">
+                            <label for="colCp" class="">
+                               C.P.</label>
+                            <input class="form-control" [(ngModel)]="direccion.colonia.colCp" disabled="true"
+                                type="text" required formControlName="colCp">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="col-md-6">Estado</label>
+                                <select class="custom-select col-xl-6 col-md-6" formControlName="entId"
+                                 (change)="callMunicipio($event.target.value)" required>
+                                    <option [value]="null" >Seleccionar</option>
+                                    <option *ngFor="let entidad of entidades " [value]="entidad.entId">{{entidad.entNom}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class=" col-md-6">Municipio</label>
+                                <select class="custom-select col-xl-6 col-lg-6 col-md-6" formControlName="munId"
+                                (change)="callColonia($event.target.value)" required>
+                                    <option [value]="null" >Seleccionar</option>
+                                    <option *ngFor="let municipio of municipios " [value]="municipio.munId">{{municipio.nomMun}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class=" col-xl-6 col-md-6">Colonia</label>
+                                <select class="custom-select col-md-6" required formControlName="colId"
+                                (change)="setColonia($event.target.value)">
+                                    <option [value]="null" >Seleccionar</option>
+                                    <option *ngFor="let colonia of colonias " [value]="colonia.colId">{{colonia.colNom}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-8">
+                                <label for="dirCalle" class=" "><span>*</span>
+                                    Calle</label>
+                                <input class="form-control " [(ngModel)]="direccion.dirCalle"
+                                    type="text" required formControlName="dirCalle">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="dirNumExt" class=""><span>*</span>
+                                    No. Ext</label>
+                                <input class="form-control " [(ngModel)]="direccion.dirNumExt"
+                                    type="text" required formControlName="dirNumExt">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="dirNumInt" class="">
+                                    No. Int</label>
+                                <input class="form-control " [(ngModel)]="direccion.dirNumInt"
+                                    type="text" formControlName="dirNumInt">
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <button type="submit" [disabled]="!dirForm.valid"  class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

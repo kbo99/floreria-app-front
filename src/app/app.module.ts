@@ -19,6 +19,8 @@ import { MediaModule } from './components/media/media.module';
 import { MenusModule } from './components/menus/menus.module';
 import { VendorsModule } from './components/vendors/vendors.module';
 import { UsersModule } from './components/users/users.module';
+import { ClientesModule } from './components/clientes/cliente.module';
+import { PipeModule } from './pipes/pipe.module';
 import { LocalizationModule } from './components/localization/localization.module';
 import { InvoiceModule } from './components/invoice/invoice.module';
 import { SettingModule } from './components/setting/setting.module';;
@@ -48,7 +50,9 @@ import { AuthModule } from './components/auth/auth.module';
     MediaModule,
     MenusModule,
     UsersModule,
-    HttpClientModule
+    HttpClientModule,
+    ClientesModule,
+    PipeModule
   ],
   providers: [{  provide: HTTP_INTERCEPTORS,
     useClass: CustomHttpInterceptor,

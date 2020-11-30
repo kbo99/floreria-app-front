@@ -1,4 +1,5 @@
- 
+import { Direccion } from './Direccion';
+
 export class Persona {
     public perId: number;
     public perApePate: string;
@@ -9,8 +10,14 @@ export class Persona {
     public password: string;
     public perTelefono: string;
     public membresia: number;
+    public perFnacimiento: Date;
+    public perRfc: string;
+    public direccions: Direccion[];
     
-    constructor() { }
+    constructor() { 
+        this.perId = 0;
+        this.direccions = []
+    }
     
     get perNombreApe(): string {
     var nombre: string= "";

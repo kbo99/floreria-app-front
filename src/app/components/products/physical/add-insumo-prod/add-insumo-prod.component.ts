@@ -171,7 +171,8 @@ export class AddInsumoProdComponent implements OnInit {
   }
   findLstProd(){
     const _this = this;
-    this.productoService.getProdByestatus('AC').subscribe(
+    //Obtemos los insumos de la tabla productos, con estatus ACTIVO (AC) y especificamos que el producto es un insumo (true)
+    this.productoService.getProdByestatus('AC', true).subscribe(
       correcto => {
         this.lstProdTmp = correcto as Array<ProductoVO>;
     

@@ -22,7 +22,7 @@ export class CreateUserComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private _usuarioService: UsuarioService) {
 
     _usuarioService.findAllGrupos().subscribe(item => {
-      this.groups = item;
+      this.groups = item; 
       //.log(item)
     } );
   }

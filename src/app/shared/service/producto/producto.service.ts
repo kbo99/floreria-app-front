@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { ProductoVO } from '../../model/Producto/ProductoVO';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,13 @@ export class ProductoService{
                 });
     }
 
-    getProdByestatus(estatus: string){
+    getProdByestatus(estatus: string, esInsumo: boolean){
       let url = 'prod/insumos';
-      return this.http.post( url, estatus)
+      let param = new ProductoVO();
+      param.prodEstatus = estatus;
+      param.prodEsInsumo = esInsumo;
+
+      return this.http.post( url, param)
                   .map( (resp: any) => {
                     return resp;
                   });

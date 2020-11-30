@@ -77,15 +77,15 @@ prodTmp:string;
   initComp(){
 
      //Se recupera todo el detalle del producto, para obtener las imagenes relacionadas
-     this.productoService.findByProdId(this.producto.prodId).subscribe(
-      correcto => {
-        this.producto =  correcto as ProductoVO;
-        console.log(correcto);
+     //this.productoService.findByProdId(this.producto.prodId).subscribe(
+      //correcto => {
+        //this.producto =  correcto as ProductoVO;
+        //console.log(correcto);
 
         if(this.producto.lstImg && this.producto.lstImg !== undefined && this.producto.lstImg !== null && 
           this.producto.lstImg.length > 0){
     
-          this.currVerifiedLoanOfficerPhoto = (this._sanitizer.bypassSecurityTrustResourceUrl(this.producto.lstImg[0].imgUrl) as any).
+          this.currVerifiedLoanOfficerPhoto = (this._sanitizer.bypassSecurityTrustResourceUrl(Cosnt.amazon_s3_endpoint + this.producto.lstImg[0].imgUrl) as any).
           changingThisBreaksApplicationSecurity;
         }
         this.productForm = this.fb.group({
@@ -98,11 +98,11 @@ prodTmp:string;
         const _this = this;
         this.producto.lstImg.forEach(function(value) {
          _this.url[indexImg].img =    
-        (_this._sanitizer.bypassSecurityTrustResourceUrl(value.imgUrl) as any).
+        (_this._sanitizer.bypassSecurityTrustResourceUrl(Cosnt.amazon_s3_endpoint + value.imgUrl) as any).
             changingThisBreaksApplicationSecurity;
             indexImg++;
          
-        });
+       // });
 
 
       });
@@ -154,7 +154,7 @@ save(){
   this.producto = this.productForm.value;
   this.producto.prodExistenciaMin = this.counter;
   this.producto.lstImg = this.lstImg;
-  this.producto.prodEstatus = 'PC';
+  this.producto.prodEstatus = 'AC';
   this.producto.usuario = this.auth.payload.user_name;
   this.producto.lstProdHijo = this.lstProdTmp; 
   this.productoService.saveProd(this.producto).subscribe(
