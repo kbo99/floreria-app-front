@@ -9,17 +9,17 @@ export class VentaService{
     constructor(public http: HttpClient,
         public router: Router) { }
 
-    findByPtipEstatus(estatus: string){
-        let url = 'ventas/findByPtipEstatus';
-        return this.http.post( url, estatus)
+    findByPtipEstatus(estatus: string){  
+        let url = 'ventas/findPagoEstatus';
+        return this.http.post( url, null)
                     .map( (resp: any) => {
                       return resp;
                     });
     }
 
     findByPmetEstatus(estatus: string){
-      let url = 'ventas/findByPmetEstatus';
-      return this.http.post( url, estatus)
+      let url = 'ventas/findMetodoPago';
+      return this.http.post( url, null)
                   .map( (resp: any) => {
                     return resp;
                   });

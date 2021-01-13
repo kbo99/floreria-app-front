@@ -48,8 +48,8 @@ export class NewPersonaComponent implements OnInit {
       perNombre: [this.persona.perNombre, Validators.required],
       perApePate: [this.persona.perApePate, Validators.required],
       perApeMat: [this.persona.perApeMat],
-      perEmail: [this.persona.perEmail, [Validators.required, Validators.email]],
-      perRfc: [this.persona.perRfc, Validators.required]
+      perEmail: [this.persona.perEmail, Validators.email],
+      perTelefono: [this.persona.perTelefono]
     })
   }
 
