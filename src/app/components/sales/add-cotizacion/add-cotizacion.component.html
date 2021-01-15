@@ -9,84 +9,267 @@
                 <div class="card-header">
                     <h5>Nueva Orden</h5>
                 </div>
-                <div class="card-body">
-                    <form class="needs-validation" [formGroup]="generalForm">
+                <div class="card-body tab2-card">
+                    <form class="needs-validation" [formGroup]="generalForm" (ngSubmit)="onSubmit()">
                         <div class="add-product-form">
-                            <div class="form-group row">
-                                <label class="col-xl-3 col-md-4">Fecha Pedido</label>
-                                <div class="input-group col-md-7 input-grp-p">
-                                    <input matInput [matDatepicker]="picker"  formControlName="fechaIni">
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker  [startAt]="minDate" ></mat-datepicker>
-                                    <div *ngIf="generalForm.controls.fechaIni.touched && generalForm.controls.fechaIni.errors?.required"
-                                    class="text text-danger">
-                                    Fecha Inicial es Requerida
-                                    </div>
-                                </div>
-                            </div>
+                            <ngb-tabset class="tab-coupon">
+                                <!-- Cliente -->
+                                <ngb-tab title="Cliente">
+                                    <ng-template ngbTabContent>
+                                        
+                                        <form class="needs-validation" [formGroup]="cteBuscaClienteForm">
+                                            <div class="form-group row">
+                                                <label for="validationCustom06" class="col-xl-2 col-sm-3 mb-0">Cliente:</label>
+                                                <input class="form-control col-xl-4 col-sm-7" id="validationCustom06"
+                                                    type="text" formControlName="nombre" required="">
+                                                <div *ngIf="cteBuscaClienteForm.controls.nombre.touched && cteBuscaClienteForm.controls.nombre.errors?.required"
+                                                    class="text text-danger">
+                                                    Nombre del cliente es requerido.
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-xl-2 col-sm-3 mb-0"></label>
+                                                <div class="pull-right">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-original-title="test"
+                                                    data-target="#exampleModal" (click)="open(content)">Buscar</button>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="attribute-blocks" [style.visibility]="isDivInfoVisible ? 'visible' : 'hidden'">
+                                                <div class="form-group row editor-label">
+                                                    <label class="col-xl-2 col-sm-3 mb-0">Nombre:</label>
+                                                    <input class="form-control col-xl-4 col-sm-7" id="lblNomCliente"
+                                                        type="text" formControlName="lblNomCliente">
+                                                </div>
 
-                            <div class="form-group row">
-                                <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Tipo Pago :</label>
-                                <select placeholder="Tipo Pago" class="form-control col-xl-8 col-sm-7" formControlName="ptipId">
-                                    <option *ngFor="let tp of lstTipoPago" [value]="tp.ptipId">{{tp.ptipNombre}}</option>
-                                </select>
-                            </div>
+                                                <div class="form-group row editor-label">
+                                                    <label class="col-xl-2 col-sm-3 mb-0">Direcciones:</label>
+                                                    <select placeholder="Direcciones" class="form-control col-xl-2 col-sm-4 mb-0" formControlName="dirId"
+                                                        (change)="onChangeDirCte($event.target.value)">
+                                                        <option value="">-- Seleccionar --</option>
+                                                        <option *ngFor="let dc of lstDirecCte" [value]="dc.dirId">{{dc.dirCalle}}</option>
+                                                    </select>
+                                                </div>
 
-                            <div class="form-group row">
-                                <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Precio Total:</label>
-                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom02"
-                                    type="number" [formControl]="generalForm.controls['ventaPrecioTotal']" required="">
-                                <div *ngIf="generalForm.controls.ventaPrecioTotal.touched && generalForm.controls.ventaPrecioTotal.errors?.required"
-                                    class="text text-danger">
-                                    Precio Total es requerido.
-                                </div>
-                            </div>
+                                                <div class="form-group row editor-label">
+                                                    <label class="col-xl-2 col-sm-3 mb-4">Entrega:</label>
+                                                    <textarea id="dirSelected" rows="4" formControlName="dirSelected"
+                                                        class="col-xl-4 col-md-7"></textarea>
+                                                </div>
+                                            </div>
+                                        </form>
 
-                            <div class="form-group row">
-                                <label for="validationCustom03" class="col-xl-3 col-sm-4 mb-0">Precio Producto:</label>
-                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom03"
-                                    type="number" [formControl]="generalForm.controls['ventaPrecioProd']" required="">
-                                <div *ngIf="generalForm.controls.ventaPrecioProd.touched && generalForm.controls.ventaPrecioProd.errors?.required"
-                                    class="text text-danger">
-                                    Precio Producto es requerido.
-                                </div>
-                            </div>
+                                        <!-- MODAL RESULTADO CLIENTES-->
+                                        <ng-template #content let-modal>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Clientes</h5>
+                                                    <button type="button" class="close" aria-label="Close"
+                                                        (click)="modal.dismiss('Cross click')">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card-body">
+                                                        <div id="listPer" class="category-table custom-datatable">
+                                                            <div class="table-responsive">
+                                                                <ng2-smart-table [settings]="settings" [source]="personas" (edit)="selectCliente($event)"></ng2-smart-table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-primary" type="button" data-dismiss="modal"
+                                                        (click)="modal.dismiss('Cross click')">Cancelar</button>
+                                                    <button type="button" class="btn btn-secondary"  >Guardar</button>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </ng-template>
+                                </ngb-tab>
 
-                            <div class="form-group row">
-                                <label for="validationCustom04" class="col-xl-3 col-sm-4 mb-0">Precio Envío:</label>
-                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom04"
-                                    type="number" [formControl]="generalForm.controls['ventaPrecioEnvio']" required="">
-                                <div *ngIf="generalForm.controls.ventaPrecioEnvio.touched && generalForm.controls.ventaPrecioEnvio.errors?.required"
-                                    class="text text-danger">
-                                    Precio Envío es requerido.
-                                </div>
-                            </div>
+                                <!-- Entrega-->
+                                <ngb-tab title="Entrega">
+                                    <ng-template ngbTabContent>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-md-4">Fecha Pedido</label>
+                                            <div class="input-group col-md-7 input-grp-p">
+                                                <input matInput [matDatepicker]="picker"  formControlName="fechaIni">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker  [startAt]="minDate" ></mat-datepicker>
+                                                <div *ngIf="generalForm.controls.fechaIni.touched && generalForm.controls.fechaIni.errors?.required"
+                                                class="text text-danger">
+                                                Fecha Inicial es Requerida
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            <div class="form-group row">
-                                <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Metodo :</label>
-                                <select placeholder="Metodo" class="form-control col-xl-8 col-sm-7" formControlName="pmetId">
-                                    <option *ngFor="let tm of lstMetodoPag" [value]="tm.pmetId">{{tm.pmetNombre}}</option>
-                                </select>
-                            </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-md-4">Fecha Entrega</label>
+                                            <div class="input-group col-md-7 input-grp-p">
+                                                <input matInput [matDatepicker]="pickerEntrega"  formControlName="fechaEntrega">
+                                                <mat-datepicker-toggle matSuffix [for]="pickerEntrega"></mat-datepicker-toggle>
+                                                <mat-datepicker #pickerEntrega  [startAt]="minDate" ></mat-datepicker>
+                                                <div *ngIf="generalForm.controls.fechaEntrega.touched && generalForm.controls.fechaEntrega.errors?.required"
+                                                class="text text-danger">
+                                                Fecha Entrega es Requerida
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            <div class="form-group row">
-                                <label class="col-xl-3 col-md-4">Fecha Entrega</label>
-                                <div class="input-group col-md-7 input-grp-p">
-                                    <input matInput [matDatepicker]="pickerEntrega"  formControlName="fechaEntrega">
-                                    <mat-datepicker-toggle matSuffix [for]="pickerEntrega"></mat-datepicker-toggle>
-                                    <mat-datepicker #pickerEntrega  [startAt]="minDate" ></mat-datepicker>
-                                    <div *ngIf="generalForm.controls.fechaEntrega.touched && generalForm.controls.fechaEntrega.errors?.required"
-                                    class="text text-danger">
-                                    Fecha Entrega es Requerida
-                                    </div>
-                                </div>
-                            </div>
+                                        <div class="form-group row">
+                                            <label for="validationCustom05" class="col-xl-3 col-sm-4 mb-0">Intervalo :</label>
+                                            <select placeholder="Intervalo" class="form-control col-xl-2 col-sm-3" 
+                                                formControlName="intervalo" (change)="onChangeIntervalo($event.target.value)">
+                                                <option value="">-- Seleccionar --</option>
+                                                <option *ngFor="let int of lstIntervalos" [value]="int.hrenId">{{int.hrenHora}}</option>
+                                            </select>
+                                        </div>
 
-                            <div class="form-group row editor-label">
-                                <label class="col-xl-3 col-md-4">Dirección</label>
-                                <textarea rows="4" formControlName="direccion" class="col-xl-8 col-md-7"></textarea>
-                            </div>
+                                        <div class="form-group row">
+                                            <label for="validationCustom05" class="col-xl-3 col-sm-4 mb-0">Hora Preferente :</label>
+                                            <select placeholder="Hora Preferente" class="form-control col-xl-2 col-sm-3" 
+                                                formControlName="horaPref">
+                                                <option value="">-- Seleccionar --</option>
+                                                <option *ngFor="let int of lstHorarios" [value]="int.hrenId">{{int.hrenHora}}</option>
+                                            </select>
+                                        </div>
 
+                                        <div class="form-group row editor-label">
+                                            <label class="col-xl-3 col-sm-4 mb-4">Entrega:</label>
+                                            <textarea id="dirEnvio" rows="4" formControlName="dirEnvio"
+                                                class="col-xl-3 col-md-7"></textarea>
+                                        </div>
+
+                                        <div class="form-group row editor-label">
+                                            <label class="col-xl-3 col-sm-4 mb-4">Referencia:</label>
+                                            <textarea id="refEnvio" rows="4" formControlName="refEnvio"
+                                                class="col-xl-3 col-md-7"></textarea>
+                                        </div>
+
+                                        <div class="form-group row editor-label">
+                                            <label class="col-xl-3 col-sm-4 mb-0">Destinatario:</label>
+                                            <input class="form-control col-xl-3 col-sm-7" id="nomDestinatario"
+                                                type="text" formControlName="nomDestinatario">
+                                        </div>
+
+                                        <div class="form-group row editor-label">
+                                            <label class="col-xl-3 col-sm-4 mb-0">Telefono:</label>
+                                            <input class="form-control col-xl-3 col-sm-4" id="telDestinatario"
+                                                type="number" formControlName="telDestinatario">
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+
+                                <!-- Producto-->
+                                <ngb-tab title="Producto">
+                                    <ng-template ngbTabContent>
+
+                                        <div class="form-group row">
+                                            <label for="validationCustom05" class="col-xl-3 col-sm-4 mb-0">Producto :</label>
+                                            <select placeholder="Producto" class="form-control col-xl-2 col-sm-3" 
+                                                formControlName="producto" (change)="onChangeProducto($event.target.value)">
+                                                <option value="">-- Seleccionar --</option>
+                                                <option *ngFor="let prod of lstProd" [value]="prod.prodId">{{prod.prodNombre}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group row editor-label">
+                                            <label class="col-xl-3 col-sm-4 mb-4">Detalle:</label>
+                                            <textarea id="detProdutcto" rows="4" formControlName="detProdutcto"
+                                                class="col-xl-4 col-md-7"></textarea>
+                                        </div>
+
+                                        <div class="form-group row editor-label">
+                                            <label class="col-xl-3 col-sm-4 mb-0">Catálogo:</label>
+                                            <input class="form-control col-xl-4 col-sm-7" id="nomCatalogo"
+                                                type="text" formControlName="nomCatalogo">
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="validationCustom05" class="col-xl-3 col-sm-4 mb-0">Vendedor :</label>
+                                            <select placeholder="Vendedor" class="form-control col-xl-2 col-sm-3" 
+                                                formControlName="vendedor">
+                                                <option value="">-- Seleccionar --</option>
+                                                <option *ngFor="let ven of lstVendedor" [value]="ven.usuId">{{ven.persona.perNombre}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="validationCustom05" class="col-xl-3 col-sm-4 mb-0">Red Captación :</label>
+                                            <select placeholder="Captacion" class="form-control col-xl-2 col-sm-3" 
+                                                formControlName="redCaptacion">
+                                                <option value="">-- Seleccionar --</option>
+                                                <option *ngFor="let cap of lstCaptacion" [value]="cap.capId">{{cap.capNombre}}</option>
+                                            </select>
+                                        </div>
+    
+                                        <div class="form-group row">
+                                            <label for="validationCustom05" class="col-xl-3 col-sm-4 mb-0">Red Contacto :</label>
+                                            <select placeholder="Contacto" class="form-control col-xl-2 col-sm-3" 
+                                                formControlName="redContacto">
+                                                <option value="">-- Seleccionar --</option>
+                                                <option *ngFor="let cc of lstCaptacion" [value]="cc.capId">{{cc.capNombre}}</option>
+                                            </select>
+                                        </div>
+                                        
+                                    </ng-template>
+                                </ngb-tab>
+
+                                <!-- Pago-->
+                                <ngb-tab title="Pago">
+                                    <ng-template ngbTabContent>
+                                                <div class="form-group row">
+                                                    <label for="validationCustom01" class="col-xl-3 col-sm-4 mb-0">Precio Producto:</label>
+                                                    <input class="form-control col-xl-2 col-sm-3" id="validationCustom01"
+                                                        type="number" [formControl]="generalForm.controls['ventaPrecioProd']" required="" min="0" value="0">
+                                                    <div *ngIf="generalForm.controls.ventaPrecioProd.touched && generalForm.controls.ventaPrecioProd.errors?.required"
+                                                        class="text text-danger">
+                                                        Precio Producto es requerido.
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group row">
+                                                    <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Precio Envío:</label>
+                                                    <input class="form-control col-xl-2 col-sm-3" id="validationCustom02"
+                                                        type="number" [formControl]="generalForm.controls['ventaPrecioEnvio']" required="" min="0" value="0">
+                                                    <div *ngIf="generalForm.controls.ventaPrecioEnvio.touched && generalForm.controls.ventaPrecioEnvio.errors?.required"
+                                                        class="text text-danger">
+                                                        Precio Envío es requerido.
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="validationCustom03" class="col-xl-3 col-sm-4 mb-0">Precio Total:</label>
+                                                    <input class="form-control col-xl-2 col-sm-3" id="validationCustom03"
+                                                        type="number" [formControl]="generalForm.controls['ventaPrecioTotal']" required="" min="0" value="0">
+                                                    <div *ngIf="generalForm.controls.ventaPrecioTotal.touched && generalForm.controls.ventaPrecioTotal.errors?.required"
+                                                        class="text text-danger">
+                                                        Precio Total es requerido.
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="validationCustom04" class="col-xl-3 col-sm-4 mb-0">Tipo Pago :</label>
+                                                    <select placeholder="Tipo Pago" class="form-control col-xl-2 col-sm-3" formControlName="ptipId">
+                                                        <option *ngFor="let tp of lstTipoPago" [value]="tp.ptipId">{{tp.ptipNombre}}</option>
+                                                    </select>
+                                                </div>
+                    
+                                                <div class="form-group row">
+                                                    <label for="validationCustom05" class="col-xl-3 col-sm-4 mb-0">Metodo :</label>
+                                                    <select placeholder="Metodo" class="form-control col-xl-2 col-sm-3" formControlName="pmetId">
+                                                        <option *ngFor="let tm of lstMetodoPag" [value]="tm.pmetId">{{tm.pmetNombre}}</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="pull-right">
+                                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                                </div>
+                                    </ng-template>
+                                </ngb-tab>
+                            </ngb-tabset>
                         </div>
                     </form>
                 </div>

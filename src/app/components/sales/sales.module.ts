@@ -44,7 +44,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     GalleryModule.forRoot(),
     SalesRoutingModule,
     Ng2SmartTableModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    NgbModule
   ],
   providers: [
     {
