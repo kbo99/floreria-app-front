@@ -160,10 +160,14 @@ export class AddInsumoProdComponent implements OnInit {
         this.productoParent.lstProdHijo = new Array();
       }
       this.productoParent.lstProdHijo.push(this.producto);
+  this.regresar();
+  
+  
+  }
+
+  regresar(){
     sessionStorage.setItem(Cosnt.PROD_ADD_IN,JSON.stringify(this.productoParent));
     this.router.navigate([ 'products/physical/add-product']);
-  
-  
   }
   findLstProd(){
     const _this = this;

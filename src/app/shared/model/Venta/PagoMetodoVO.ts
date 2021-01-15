@@ -1,8 +1,6 @@
 export class PagoMetodoVO{
-    public pmetId : number;
-    public pmetNombre : string;
-    public pmetDecrip : string;
-    public pmetEstatus : string;
+    public  mtpId: number;
+    public  mtpNombre: string;
 
     constructor(){}
 }

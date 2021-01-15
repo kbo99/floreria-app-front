@@ -270,6 +270,168 @@
                                     </ng-template>
                                 </ngb-tab>
                             </ngb-tabset>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-md-4">Fecha Pedido</label>
+                                <div class="input-group col-md-7 input-grp-p">
+                                    <input matInput [matDatepicker]="picker"  formControlName="fechaIni">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker  [startAt]="minDate" ></mat-datepicker>
+                                    <div *ngIf="generalForm.controls.fechaIni.touched && generalForm.controls.fechaIni.errors?.required"
+                                    class="text text-danger">
+                                    Fecha Inicial es Requerida
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Tipo Pago :</label>
+                                <select placeholder="Tipo Pago" class="form-control col-xl-8 col-sm-7" formControlName="ptipId">
+                                    <option *ngFor="let tp of lstTipoPago" [value]="tp.pgeId">{{tp.pgeNombre}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Precio Total:</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom02"
+                                    type="number" [formControl]="generalForm.controls['ventaPrecioTotal']" required="">
+                                <div *ngIf="generalForm.controls.ventaPrecioTotal.touched && generalForm.controls.ventaPrecioTotal.errors?.required"
+                                    class="text text-danger">
+                                    Precio Total es requerido.
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom03" class="col-xl-3 col-sm-4 mb-0">Precio Producto:</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom03"
+                                    type="number" [formControl]="generalForm.controls['ventaPrecioProd']" required="">
+                                <div *ngIf="generalForm.controls.ventaPrecioProd.touched && generalForm.controls.ventaPrecioProd.errors?.required"
+                                    class="text text-danger">
+                                    Precio Producto es requerido.
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom04" class="col-xl-3 col-sm-4 mb-0">Precio Envío:</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom04"
+                                    type="number" [formControl]="generalForm.controls['ventaPrecioEnvio']" required="">
+                                <div *ngIf="generalForm.controls.ventaPrecioEnvio.touched && generalForm.controls.ventaPrecioEnvio.errors?.required"
+                                    class="text text-danger">
+                                    Precio Envío es requerido.
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Metodo :</label>
+                                <select placeholder="Metodo" class="form-control col-xl-8 col-sm-7" formControlName="mtpId">
+                                    <option *ngFor="let tm of lstMetodoPag" [value]="tm.mtpId">{{tm.mtpNombre}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-md-4">Fecha Entrega</label>
+                                <div class="input-group col-md-7 input-grp-p">
+                                    <input matInput [matDatepicker]="pickerEntrega"  formControlName="fechaEntrega">
+                                    <mat-datepicker-toggle matSuffix [for]="pickerEntrega"></mat-datepicker-toggle>
+                                    <mat-datepicker #pickerEntrega  [startAt]="minDate" ></mat-datepicker>
+                                    <div *ngIf="generalForm.controls.fechaEntrega.touched && generalForm.controls.fechaEntrega.errors?.required"
+                                    class="text text-danger">
+                                    Fecha Entrega es Requerida
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row editor-label">
+                                <label class="col-xl-3 col-md-4">Dirección</label>
+                                <textarea rows="4" formControlName="direccion" class="col-xl-8 col-md-7"></textarea>
+                            </div>
+
+                            <div class="form-group row editor-label">
+                                <label class="col-xl-3 col-md-4">Referencia</label>
+                                <textarea rows="4" formControlName="referencia" class="col-xl-8 col-md-7"></textarea>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Intervalo :</label>
+                                <select placeholder="Metodo" class="form-control col-xl-8 col-sm-7" formControlName="pmetId">
+                                    <option *ngFor="let tm of lstMetodoPag" [value]="tm.pmetId">{{tm.pmetNombre}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom03" class="col-xl-3 col-sm-4 mb-0">Hora Preferente:</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom03"
+                                    type="text" [formControl]="generalForm.controls['ventaPrecioProd']" >
+                                
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom03" class="col-xl-3 col-sm-4 mb-0">Cliente:</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom03"
+                                    type="text" [formControl]="generalForm.controls['ventaPrecioProd']" >
+                                
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom03" class="col-xl-3 col-sm-4 mb-0">Telefono Cliente:</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom03"
+                                    type="text" [formControl]="generalForm.controls['ventaPrecioProd']" >
+                                
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom03" class="col-xl-3 col-sm-4 mb-0">Destinatario:</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom03"
+                                    type="text" [formControl]="generalForm.controls['ventaPrecioProd']" >
+                                
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom03" class="col-xl-3 col-sm-4 mb-0">Telefono Destinatario:</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom03"
+                                    type="text" [formControl]="generalForm.controls['ventaPrecioProd']" >
+                                
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom03" class="col-xl-3 col-sm-4 mb-0">Nombre de Catalogo/ Flor :</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="validationCustom03"
+                                    type="text" [formControl]="generalForm.controls['ventaPrecioProd']" >
+                                
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Pedido :</label>
+                                <select placeholder="Metodo" class="form-control col-xl-8 col-sm-7" formControlName="prodId">
+                                    <option *ngFor="let tm of lstProd" [value]="tm.prodId">{{tm.prodNombre}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group row editor-label">
+                                <label class="col-xl-3 col-md-4">Detalles:</label>
+                                <textarea rows="4" formControlName="referencia" class="col-xl-8 col-md-7"></textarea>
+                            </div>
+
+                            <div class="form-group row editor-label">
+                                <label class="col-xl-3 col-md-4">Resumen de Venta:</label>
+                                <textarea rows="4" formControlName="referencia" class="col-xl-8 col-md-7"></textarea>
+                            </div>
+
+                            
+
+                            <div class="form-group row editor-label">
+                                <label class="col-xl-3 col-md-4">Nota:</label>
+                                <textarea rows="4" formControlName="referencia" class="col-xl-8 col-md-7"></textarea>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Estatus :</label>
+                                <select placeholder="Metodo" class="form-control col-xl-8 col-sm-7" formControlName="pmetId">
+                                    <option *ngFor="let tm of lstMetodoPag" [value]="tm.pmetId">{{tm.pmetNombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <button type="submit"  class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
                 </div>

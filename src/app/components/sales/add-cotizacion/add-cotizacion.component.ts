@@ -21,6 +21,8 @@ import { ProductoService } from 'src/app/shared/service/producto/producto.servic
 import { ProductoVO } from 'src/app/shared/model/Producto/ProductoVO';
 import { CaptacionVO } from 'src/app/shared/model/Venta/CaptacionVO';
 import { OrdenVO } from 'src/app/shared/model/Venta/OrdenVO';
+import { ProductoService } from 'src/app/shared/service/producto/producto.service';
+import { ProductoVO } from 'src/app/shared/model/Producto/ProductoVO';
 
 @Component({
   selector: 'app-add-cotizacion',
@@ -54,6 +56,7 @@ export class AddCotizacionComponent implements OnInit {
 
   public ordenVO : OrdenVO;
 
+  public lstProd: ProductoVO[] = new Array();
   //constructor() {}
 
   constructor(private modalService: NgbModal,private _sanitizer: DomSanitizer, private router: Router, public _authService: AuthService,
@@ -63,6 +66,7 @@ export class AddCotizacionComponent implements OnInit {
     private _usuarioService: UsuarioService,
     private productoService:ProductoService) { 
 
+    private ventaService : VentaService, private productoService:ProductoService) { 
     this.createGeneralForm();
     this.findByPtipEstatus();
     this.findByPmetEstatus();
@@ -70,6 +74,7 @@ export class AddCotizacionComponent implements OnInit {
     this.findAllUsuarios();
     this.findLstProd();
     this.findByCapEstatus();
+    this.findLstProd();
     const currentYear = new Date().getFullYear();
       
     this.minDate = new Date(currentYear, new Date().getMonth(), new Date().getDay()- 1);
@@ -93,6 +98,9 @@ export class AddCotizacionComponent implements OnInit {
       ptipId: [''],
       pmetId: [''],
       ventaPrecioTotal: new FormControl({value: 0}, Validators.required),
+      mtpId: [''],
+      prodId: [''],
+      ventaPrecioTotal: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       ventaPrecioProd: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       ventaPrecioEnvio: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       intervalo: [''],
@@ -363,5 +371,19 @@ export class AddCotizacionComponent implements OnInit {
             correcto => this.ngOnInit(),
             error => console.error("Error al guardar Usuario", error));
     */
+  }
+
+  findLstProd(){
+    const _this = this;
+    //Obtemos los insumos de la tabla productos, con estatus ACTIVO (AC) y especificamos que el producto NO es insumo (false)
+    this.productoService.getProdByestatus('AC', false).subscribe(
+      correcto => {
+        this.lstProd = correcto as Array<ProductoVO>;
+       
+    },
+     error => {
+       console.error("Usuario o contraseña invalidos");
+     } );
+    
   }
 }
